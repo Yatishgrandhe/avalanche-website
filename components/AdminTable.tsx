@@ -19,8 +19,13 @@ export default function AdminTable({ title, tableName, columns }: AdminTableProp
   useEffect(() => {
     const loadData = async () => {
       try {
-        const fetchedData = await getAdminData(tableName)
-        setData(fetchedData || [])
+        const result = await getAdminData(tableName)
+        if (result.success) {
+          setData(result.data || [])
+        } else {
+          console.error('Error loading data:', result.error)
+          // Optionally set an error state here to show in UI
+        }
       } catch (error) {
         console.error('Error loading data:', error)
       } finally {
@@ -54,14 +59,19 @@ export default function AdminTable({ title, tableName, columns }: AdminTableProp
         valueToSave = editValue.split(',').map((item) => item.trim()).filter(Boolean)
       }
 
-      await updateAdminData(tableName, rowId, columnKey, valueToSave)
+      const result = await updateAdminData(tableName, rowId, columnKey, valueToSave)
 
-      // Update local state
-      setData((prev) =>
-        prev.map((row) => (row.id === rowId ? { ...row, [columnKey]: valueToSave } : row))
-      )
-      setEditingCell(null)
-      setEditValue('')
+      if (result.success) {
+        // Update local state
+        setData((prev) =>
+          prev.map((row) => (row.id === rowId ? { ...row, [columnKey]: valueToSave } : row))
+        )
+        setEditingCell(null)
+        setEditValue('')
+      } else {
+        console.error('Error saving:', result.error)
+        alert(`Error saving changes: ${result.error}`)
+      }
     } catch (error) {
       console.error('Error saving:', error)
       alert('Error saving changes. Please try again.')
