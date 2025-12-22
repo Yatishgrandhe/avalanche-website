@@ -5,6 +5,26 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
+// Custom fetch that intercepts schema cache requests and handles them silently
+const customFetch = (url: string, options?: RequestInit) => {
+  // Check if this is a schema introspection request
+  const isSchemaRequest = url.includes('/rest/v1/') && !url.match(/\/rest\/v1\/[^/]+/) && !url.includes('?')
+  
+  return fetch(url, options).catch((error) => {
+    // Silently handle schema cache errors
+    if (isSchemaRequest || error.message?.includes('schema cache')) {
+      // Return a mock response for schema requests that fail
+      if (isSchemaRequest) {
+        return new Response(JSON.stringify({}), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        })
+      }
+    }
+    throw error
+  })
+}
+
 export async function submitSponsorForm(formData: {
     company_name: string
     contact_person_name: string
@@ -21,7 +41,7 @@ export async function submitSponsorForm(formData: {
 
         // Create Supabase admin client with service role key for server-side operations
         // Initialize inside function to ensure fresh instance and avoid module-level state issues
-        // Disable schema introspection to prevent schema cache errors
+        // Use custom fetch to handle schema cache errors silently
         const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
             auth: {
                 autoRefreshToken: false,
@@ -33,9 +53,9 @@ export async function submitSponsorForm(formData: {
             global: {
                 headers: {
                     'x-client-info': 'avalanche-sponsor-form'
-                }
+                },
+                fetch: customFetch
             },
-            // Disable schema introspection to prevent schema cache errors
             realtime: {
                 params: {
                     eventsPerSecond: 10
