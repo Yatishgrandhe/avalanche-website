@@ -107,7 +107,7 @@ export default function AdminTable({ title, tableName, columns }: AdminTableProp
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+        <table className="w-full text-left border-collapse min-w-max">
           <thead>
             <tr className="bg-white/5 border-b border-white/10">
               {columns.map((column) => (
