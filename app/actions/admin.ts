@@ -1,67 +1,74 @@
 'use server'
 
-import { createClient } from '@supabase/supabase-js'
+import { Pool } from 'pg'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+const connectionString = process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING
 
-function getAdminClient() {
-    if (!supabaseUrl || !supabaseServiceRoleKey) {
-        console.error('Missing Supabase environment variables for admin client')
-        return null
+const pool = new Pool({
+    connectionString,
+    ssl: {
+        rejectUnauthorized: false
     }
-    return createClient(supabaseUrl, supabaseServiceRoleKey, {
-        auth: {
-            persistSession: false,
-            autoRefreshToken: false,
-        }
-    })
+})
+
+// Whitelist allowed tables to prevent SQL injection
+const ALLOWED_TABLES = [
+    'sponsor_submissions',
+    'avalanche_interest_submissions',
+    'everest_interest_submissions'
+]
+
+function validateTable(tableName: string) {
+    if (!ALLOWED_TABLES.includes(tableName)) {
+        throw new Error(`Invalid table name: ${tableName}`)
+    }
 }
 
 export async function getAdminData(tableName: string) {
     try {
-        const supabase = getAdminClient()
-        if (!supabase) {
-            return { success: false, error: 'Server configuration error: Missing environment variables' }
+        validateTable(tableName)
+
+        if (!connectionString) {
+            return { success: false, error: 'Database configuration missing' }
         }
 
-        const { data, error } = await supabase
-            .from(tableName)
-            .select('*')
-            .order('created_at', { ascending: false })
-
-        if (error) {
-            console.error(`Error fetching ${tableName}:`, error)
-            return { success: false, error: error.message }
+        const client = await pool.connect()
+        try {
+            const query = `SELECT * FROM "${tableName}" ORDER BY created_at DESC`
+            const result = await client.query(query)
+            return { success: true, data: result.rows }
+        } finally {
+            client.release()
         }
-
-        return { success: true, data }
-    } catch (err) {
-        console.error('Unexpected error in getAdminData:', err)
-        return { success: false, error: 'An unexpected error occurred' }
+    } catch (err: any) {
+        console.error('Database error in getAdminData:', err)
+        return { success: false, error: err.message || 'Database error' }
     }
 }
 
 export async function updateAdminData(tableName: string, rowId: string, columnKey: string, value: any) {
     try {
-        const supabase = getAdminClient()
-        if (!supabase) {
-            return { success: false, error: 'Server configuration error: Missing environment variables' }
+        validateTable(tableName)
+
+        // Basic hygiene check for column key (alphanumeric + underscore)
+        if (!/^[a-zA-Z0-9_]+$/.test(columnKey)) {
+            return { success: false, error: 'Invalid column name' }
         }
 
-        const { error } = await supabase
-            .from(tableName)
-            .update({ [columnKey]: value })
-            .eq('id', rowId)
-
-        if (error) {
-            console.error(`Error updating ${tableName}:`, error)
-            return { success: false, error: error.message }
+        if (!connectionString) {
+            return { success: false, error: 'Database configuration missing' }
         }
 
-        return { success: true }
-    } catch (err) {
-        console.error('Unexpected error in updateAdminData:', err)
-        return { success: false, error: 'An unexpected error occurred' }
+        const client = await pool.connect()
+        try {
+            const query = `UPDATE "${tableName}" SET "${columnKey}" = $1 WHERE id = $2`
+            await client.query(query, [value, rowId])
+            return { success: true }
+        } finally {
+            client.release()
+        }
+    } catch (err: any) {
+        console.error('Database error in updateAdminData:', err)
+        return { success: false, error: err.message || 'Database error' }
     }
 }
