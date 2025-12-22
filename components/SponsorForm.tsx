@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { submitSponsorForm } from '@/app/actions/sponsor'
 import { SponsorSubmission } from '@/lib/types'
 
 export default function SponsorForm() {
@@ -15,34 +15,42 @@ export default function SponsorForm() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    setErrorMessage('')
 
     try {
-      if (!supabase) {
-        throw new Error('Supabase client not initialized')
-      }
-      const { error } = await supabase
-        .from('sponsor_submissions')
-        .insert([formData])
-
-      if (error) throw error
-
-      setSubmitStatus('success')
-      setFormData({
-        company_name: '',
-        contact_person_name: '',
-        email: '',
-        phone: '',
-        sponsorship_level: '',
-        message: '',
+      const result = await submitSponsorForm({
+        company_name: formData.company_name,
+        contact_person_name: formData.contact_person_name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        sponsorship_level: formData.sponsorship_level || undefined,
+        message: formData.message || undefined,
       })
-    } catch (error) {
+
+      if (result.success) {
+        setSubmitStatus('success')
+        setFormData({
+          company_name: '',
+          contact_person_name: '',
+          email: '',
+          phone: '',
+          sponsorship_level: '',
+          message: '',
+        })
+      } else {
+        setSubmitStatus('error')
+        setErrorMessage(result.error || 'There was an error submitting your form. Please try again.')
+      }
+    } catch (error: any) {
       console.error('Error submitting form:', error)
       setSubmitStatus('error')
+      setErrorMessage('There was an error submitting your form. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -157,10 +165,10 @@ export default function SponsorForm() {
 
       {submitStatus === 'error' && (
         <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-6 py-4 rounded-xl animate-fade-in flex items-center">
-          <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          There was an error submitting your form. Please try again.
+          <span>{errorMessage || 'There was an error submitting your form. Please try again.'}</span>
         </div>
       )}
 
