@@ -1,15 +1,19 @@
 'use server'
 
-import { Pool } from 'pg'
+import { createClient } from '@supabase/supabase-js'
 
-const connectionString = process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-const pool = new Pool({
-    connectionString: connectionString ? connectionString.split('?')[0] : undefined,
-    ssl: {
-        rejectUnauthorized: false
-    }
-})
+// Create Supabase admin client with service role key for server-side operations
+const supabaseAdmin = supabaseUrl && supabaseServiceRoleKey
+    ? createClient(supabaseUrl, supabaseServiceRoleKey, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false
+        }
+    })
+    : null
 
 // Whitelist allowed tables to prevent SQL injection
 const ALLOWED_TABLES = [
@@ -28,20 +32,23 @@ export async function getAdminData(tableName: string) {
     try {
         validateTable(tableName)
 
-        if (!connectionString) {
+        if (!supabaseAdmin) {
             return { success: false, error: 'Database configuration missing' }
         }
 
-        const client = await pool.connect()
-        try {
-            const query = `SELECT * FROM "${tableName}" ORDER BY created_at DESC`
-            const result = await client.query(query)
-            return { success: true, data: result.rows }
-        } finally {
-            client.release()
+        const { data, error } = await supabaseAdmin
+            .from(tableName)
+            .select('*')
+            .order('created_at', { ascending: false })
+
+        if (error) {
+            console.error('Supabase error in getAdminData:', error)
+            return { success: false, error: error.message || 'Database error' }
         }
+
+        return { success: true, data: data || [] }
     } catch (err: any) {
-        console.error('Database error in getAdminData:', err)
+        console.error('Error in getAdminData:', err)
         return { success: false, error: err.message || 'Database error' }
     }
 }
@@ -55,20 +62,23 @@ export async function updateAdminData(tableName: string, rowId: string, columnKe
             return { success: false, error: 'Invalid column name' }
         }
 
-        if (!connectionString) {
+        if (!supabaseAdmin) {
             return { success: false, error: 'Database configuration missing' }
         }
 
-        const client = await pool.connect()
-        try {
-            const query = `UPDATE "${tableName}" SET "${columnKey}" = $1 WHERE id = $2`
-            await client.query(query, [value, rowId])
-            return { success: true }
-        } finally {
-            client.release()
+        const { error } = await supabaseAdmin
+            .from(tableName)
+            .update({ [columnKey]: value })
+            .eq('id', rowId)
+
+        if (error) {
+            console.error('Supabase error in updateAdminData:', error)
+            return { success: false, error: error.message || 'Database error' }
         }
+
+        return { success: true }
     } catch (err: any) {
-        console.error('Database error in updateAdminData:', err)
+        console.error('Error in updateAdminData:', err)
         return { success: false, error: err.message || 'Database error' }
     }
 }
