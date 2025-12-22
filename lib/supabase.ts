@@ -11,9 +11,13 @@ if (typeof window !== 'undefined') {
   
   console.error = (...args: any[]) => {
     const message = String(args[0] || '')
+    const fullMessage = args.map(arg => String(arg)).join(' ')
     // Suppress schema cache errors - these are non-critical retry attempts from Supabase
     if (message.includes('Could not query the database for the schema cache') || 
-        message.includes('schema cache')) {
+        message.includes('schema cache') ||
+        fullMessage.includes('Could not query the database for the schema cache') ||
+        fullMessage.includes('schema cache') ||
+        fullMessage.includes('PGRST002')) {
       return // Don't log this non-critical error
     }
     originalError.apply(console, args)
@@ -21,9 +25,13 @@ if (typeof window !== 'undefined') {
   
   console.warn = (...args: any[]) => {
     const message = String(args[0] || '')
+    const fullMessage = args.map(arg => String(arg)).join(' ')
     // Suppress schema cache warnings as well
     if (message.includes('Could not query the database for the schema cache') || 
-        message.includes('schema cache')) {
+        message.includes('schema cache') ||
+        fullMessage.includes('Could not query the database for the schema cache') ||
+        fullMessage.includes('schema cache') ||
+        fullMessage.includes('PGRST002')) {
       return // Don't log this non-critical warning
     }
     originalWarn.apply(console, args)

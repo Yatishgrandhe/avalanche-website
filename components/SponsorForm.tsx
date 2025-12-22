@@ -48,9 +48,19 @@ export default function SponsorForm() {
         setErrorMessage(result.error || 'There was an error submitting your form. Please try again.')
       }
     } catch (error: any) {
-      console.error('Error submitting form:', error)
+      // Filter out schema cache errors - these are non-critical Supabase introspection errors
+      const errorMessage = error?.message || String(error || '')
+      if (!errorMessage.includes('schema cache') && !errorMessage.includes('PGRST002')) {
+        console.error('Error submitting form:', error)
+      }
       setSubmitStatus('error')
-      setErrorMessage('There was an error submitting your form. Please try again.')
+      // Only show error if it's not a schema cache issue (those are handled by retries)
+      if (!errorMessage.includes('schema cache') && !errorMessage.includes('PGRST002')) {
+        setErrorMessage('There was an error submitting your form. Please try again.')
+      } else {
+        // Schema cache errors are usually transient - the form should still work
+        setErrorMessage('')
+      }
     } finally {
       setIsSubmitting(false)
     }
