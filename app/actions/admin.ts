@@ -11,6 +11,14 @@ const supabaseAdmin = supabaseUrl && supabaseServiceRoleKey
         auth: {
             autoRefreshToken: false,
             persistSession: false
+        },
+        db: {
+            schema: 'public'
+        },
+        global: {
+            headers: {
+                'x-client-info': 'avalanche-admin'
+            }
         }
     })
     : null
