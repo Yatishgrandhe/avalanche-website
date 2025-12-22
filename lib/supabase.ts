@@ -4,6 +4,32 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
+// Suppress schema cache errors in console (non-critical Supabase introspection errors)
+if (typeof window !== 'undefined') {
+  const originalError = console.error
+  const originalWarn = console.warn
+  
+  console.error = (...args: any[]) => {
+    const message = String(args[0] || '')
+    // Suppress schema cache errors - these are non-critical retry attempts from Supabase
+    if (message.includes('Could not query the database for the schema cache') || 
+        message.includes('schema cache')) {
+      return // Don't log this non-critical error
+    }
+    originalError.apply(console, args)
+  }
+  
+  console.warn = (...args: any[]) => {
+    const message = String(args[0] || '')
+    // Suppress schema cache warnings as well
+    if (message.includes('Could not query the database for the schema cache') || 
+        message.includes('schema cache')) {
+      return // Don't log this non-critical warning
+    }
+    originalWarn.apply(console, args)
+  }
+}
+
 // Client-side Supabase client
 export const supabase = typeof window !== 'undefined' 
   ? createClient(supabaseUrl, supabaseAnonKey, {

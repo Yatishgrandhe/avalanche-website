@@ -23,11 +23,19 @@ export default function AdminTable({ title, tableName, columns }: AdminTableProp
         if (result.success) {
           setData(result.data || [])
         } else {
-          console.error('Error loading data:', result.error)
+          // Filter out non-critical schema cache errors
+          const errorMessage = result.error || ''
+          if (!errorMessage.includes('schema cache') && !errorMessage.includes('Could not query the database for the schema cache')) {
+            console.error('Error loading data:', result.error)
+          }
           // Optionally set an error state here to show in UI
         }
-      } catch (error) {
-        console.error('Error loading data:', error)
+      } catch (error: any) {
+        // Filter out non-critical schema cache errors
+        const errorMessage = error?.message || String(error || '')
+        if (!errorMessage.includes('schema cache') && !errorMessage.includes('Could not query the database for the schema cache')) {
+          console.error('Error loading data:', error)
+        }
       } finally {
         setLoading(false)
       }
