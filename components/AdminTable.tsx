@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { supabaseAdmin } from '@/lib/supabase'
+import { getAdminData, updateAdminData } from '@/app/actions/admin'
 
 interface AdminTableProps {
   title: string
@@ -19,15 +19,7 @@ export default function AdminTable({ title, tableName, columns }: AdminTableProp
   useEffect(() => {
     const loadData = async () => {
       try {
-        if (!supabaseAdmin) {
-          throw new Error('Supabase admin client not initialized')
-        }
-        const { data: fetchedData, error } = await supabaseAdmin
-          .from(tableName)
-          .select('*')
-          .order('created_at', { ascending: false })
-
-        if (error) throw error
+        const fetchedData = await getAdminData(tableName)
         setData(fetchedData || [])
       } catch (error) {
         console.error('Error loading data:', error)
@@ -62,15 +54,7 @@ export default function AdminTable({ title, tableName, columns }: AdminTableProp
         valueToSave = editValue.split(',').map((item) => item.trim()).filter(Boolean)
       }
 
-      if (!supabaseAdmin) {
-        throw new Error('Supabase admin client not initialized')
-      }
-      const { error } = await supabaseAdmin
-        .from(tableName)
-        .update({ [columnKey]: valueToSave })
-        .eq('id', rowId)
-
-      if (error) throw error
+      await updateAdminData(tableName, rowId, columnKey, valueToSave)
 
       // Update local state
       setData((prev) =>
