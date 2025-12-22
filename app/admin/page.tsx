@@ -123,52 +123,19 @@ export default function Admin() {
               />
             </div>
 
-            {/* Avalanche Interest Submissions */}
-            <div className="glass rounded-3xl border border-white/10 overflow-hidden">
-              <AdminTable
-                title="Avalanche Interest Submissions"
-                tableName="avalanche_interest_submissions"
-                columns={[
-                  { key: 'student_first_name', label: 'First Name', editable: true },
-                  { key: 'student_last_name', label: 'Last Name', editable: true },
-                  { key: 'age', label: 'Age', editable: true, type: 'number' },
-                  { key: 'school_2025_2026', label: 'School', editable: true },
-                  { key: 'student_email', label: 'Student Email', editable: true, type: 'email' },
-                  { key: 'grade_level_2025_2026', label: 'Grade Level', editable: true },
-                  { key: 'student_phone', label: 'Student Phone', editable: true },
-                  { key: 'parent_name', label: 'Parent Name', editable: true },
-                  { key: 'parent_email', label: 'Parent Email', editable: true, type: 'email' },
-                  { key: 'parent_phone', label: 'Parent Phone', editable: true },
-                  { key: 'positions_interested', label: 'Positions', editable: true, type: 'array' },
-                  { key: 'how_did_you_know', label: 'How Did You Know', editable: true },
-                  { key: 'questions', label: 'Questions', editable: true, type: 'textarea' },
-                  { key: 'created_at', label: 'Created At', editable: false },
-                ]}
-              />
-            </div>
-
-            {/* Everest Interest Submissions */}
-            <div className="glass rounded-3xl border border-white/10 overflow-hidden">
-              <AdminTable
-                title="Everest Interest Submissions"
-                tableName="everest_interest_submissions"
-                columns={[
-                  { key: 'student_first_name', label: 'First Name', editable: true },
-                  { key: 'student_last_name', label: 'Last Name', editable: true },
-                  { key: 'age', label: 'Age', editable: true, type: 'number' },
-                  { key: 'school_2025_2026', label: 'School', editable: true },
-                  { key: 'student_email', label: 'Student Email', editable: true, type: 'email' },
-                  { key: 'grade_level_2025_2026', label: 'Grade Level', editable: true },
-                  { key: 'student_phone', label: 'Student Phone', editable: true },
-                  { key: 'parent_name', label: 'Parent Name', editable: true },
-                  { key: 'parent_email', label: 'Parent Email', editable: true, type: 'email' },
-                  { key: 'parent_phone', label: 'Parent Phone', editable: true },
-                  { key: 'positions_interested', label: 'Positions', editable: true, type: 'array' },
-                  { key: 'how_did_you_know', label: 'How Did You Know', editable: true },
-                  { key: 'questions', label: 'Questions', editable: true, type: 'textarea' },
-                  { key: 'created_at', label: 'Created At', editable: false },
-                ]}
-              />
+            {/* Submission Closed Notice */}
+            <div className="glass rounded-3xl border border-white/10 overflow-hidden p-12 text-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+              <h2 className="font-display font-bold text-3xl text-white mb-4">
+                Submission Closed
+              </h2>
+              <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+                Interest form submissions for Avalanche and Everest teams are currently closed.
+              </p>
             </div>
           </div>
         </div>

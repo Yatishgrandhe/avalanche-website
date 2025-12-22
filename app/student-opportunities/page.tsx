@@ -107,23 +107,20 @@ export default function StudentOpportunities() {
               </div>
               <div className="text-left max-w-lg">
                 <h3 className="font-display font-bold text-3xl text-white mb-4">Join the Movement</h3>
-                <p className="text-gray-300 mb-8">
+                <p className="text-gray-300 mb-6">
                   Be part of a global community of innovators, leaders, and changemakers. Your journey starts here.
                 </p>
-                <div className="flex gap-4">
-                  <Link
-                    href="/avalanche-interest"
-                    className="px-6 py-3 bg-accent-blue hover:bg-blue-600 text-white rounded-full font-semibold transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:-translate-y-1"
-                  >
-                    Join Avalanche
-                  </Link>
-                  <Link
-                    href="/everest-interest"
-                    className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold backdrop-blur-sm border border-white/10 transition-all duration-300 hover:-translate-y-1"
-                  >
-                    Join Everest
-                  </Link>
+                <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 mb-6">
+                  <p className="text-yellow-400 text-sm font-medium">
+                    ⚠️ Interest form submissions are currently closed. Please check back later for future opportunities.
+                  </p>
                 </div>
+                <Link
+                  href="/about"
+                  className="inline-block px-6 py-3 bg-accent-blue hover:bg-blue-600 text-white rounded-full font-semibold transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:-translate-y-1"
+                >
+                  Learn More About Us
+                </Link>
               </div>
             </div>
           </div>

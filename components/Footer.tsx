@@ -58,16 +58,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Interest Forms */}
+          {/* Contact Info */}
           <div>
             <h3 className="text-white font-display font-semibold mb-6 relative inline-block">
               Join Us
               <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-accent-purple rounded-full"></span>
             </h3>
-            <ul className="space-y-3">
-              <FooterLink href="/avalanche-interest">Avalanche Interest Form</FooterLink>
-              <FooterLink href="/everest-interest">Everest Interest Form</FooterLink>
-            </ul>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Interest form submissions are currently closed. Please check back later for future opportunities.
+            </p>
           </div>
 
           {/* Contact */}

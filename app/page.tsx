@@ -29,17 +29,16 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '1.2s' }}>
               <Link
-                href="/avalanche-interest"
-                className="group relative px-8 py-4 bg-accent-blue text-white rounded-full font-semibold text-lg overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:-translate-y-1"
-              >
-                <span className="relative z-10">Join the Team</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </Link>
-              <Link
                 href="/about"
-                className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-full font-semibold text-lg backdrop-blur-sm border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-white/30"
+                className="px-8 py-4 bg-accent-blue hover:bg-blue-600 text-white rounded-full font-semibold text-lg transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] hover:-translate-y-1"
               >
                 Learn More
+              </Link>
+              <Link
+                href="/student-opportunities"
+                className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-full font-semibold text-lg backdrop-blur-sm border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-white/30"
+              >
+                Student Opportunities
               </Link>
             </div>
           </div>

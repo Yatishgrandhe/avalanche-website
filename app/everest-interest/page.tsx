@@ -1,7 +1,5 @@
 'use client'
 
-import InterestForm from '@/components/InterestForm'
-
 export default function EverestInterest() {
   return (
     <div className="relative min-h-screen pb-20">
@@ -19,15 +17,21 @@ export default function EverestInterest() {
         <div className="glass p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden animate-fade-in">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent-purple/10 rounded-full blur-[80px]"></div>
 
-          <div className="relative z-10">
-            <div className="mb-10 text-center">
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Interested in joining a First Tech Challenge Robotics Team?
-                <span className="block mt-2 text-white font-medium">Fill in the form below and we will send you more details.</span>
+          <div className="relative z-10 text-center">
+            <div className="mb-10">
+              <div className="w-20 h-20 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+              <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
+                Submission Closed
+              </h2>
+              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
+                Thank you for your interest in joining Everest Robotics. Submissions are currently closed. 
+                Please check back later for future opportunities.
               </p>
             </div>
-
-            <InterestForm teamName="Everest" tableName="everest_interest_submissions" />
           </div>
         </div>
       </div>
