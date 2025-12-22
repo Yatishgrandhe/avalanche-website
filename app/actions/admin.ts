@@ -5,7 +5,7 @@ import { Pool } from 'pg'
 const connectionString = process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING
 
 const pool = new Pool({
-    connectionString,
+    connectionString: connectionString ? connectionString.split('?')[0] : undefined,
     ssl: {
         rejectUnauthorized: false
     }
