@@ -21,6 +21,7 @@ export async function submitSponsorForm(formData: {
 
         // Create Supabase admin client with service role key for server-side operations
         // Initialize inside function to ensure fresh instance and avoid module-level state issues
+        // Disable schema introspection to prevent schema cache errors
         const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
             auth: {
                 autoRefreshToken: false,
@@ -32,6 +33,12 @@ export async function submitSponsorForm(formData: {
             global: {
                 headers: {
                     'x-client-info': 'avalanche-sponsor-form'
+                }
+            },
+            // Disable schema introspection to prevent schema cache errors
+            realtime: {
+                params: {
+                    eventsPerSecond: 10
                 }
             }
         })
@@ -57,27 +64,35 @@ export async function submitSponsorForm(formData: {
             } catch (err: any) {
                 lastError = err
                 attempts++
-                console.warn(`Attempt ${attempts} failed:`, err.message)
-
-                // If it's not a schema cache or connection error, mostly likely a validation error, so don't retry
+                
+                // Check if error is retryable
                 const isRetryable =
                     err.message?.includes('schema cache') ||
                     err.message?.includes('fetch') ||
                     err.message?.includes('network') ||
-                    err.code === 'PGRST002' // Schema cache error code
+                    err.message?.includes('ECONNRESET') ||
+                    err.message?.includes('ETIMEDOUT') ||
+                    err.code === 'PGRST002' || // Schema cache error code
+                    err.code === 'ECONNRESET' ||
+                    err.code === 'ETIMEDOUT'
 
+                // If it's not a retryable error, return immediately
                 if (!isRetryable) {
-                    break
+                    console.error('Non-retryable error in submitSponsorForm:', err)
+                    return { success: false, error: err.message || 'Database error' }
                 }
 
-                // Wait briefly before retrying
+                // Log retry attempt
                 if (attempts < maxAttempts) {
+                    console.warn(`Attempt ${attempts} failed, retrying...`, err.message)
+                    // Wait before retrying with exponential backoff
                     await new Promise(resolve => setTimeout(resolve, 500 * attempts))
+                } else {
+                    console.error(`All ${maxAttempts} attempts failed in submitSponsorForm:`, err)
                 }
             }
         }
 
-        console.error('All attempts failed in submitSponsorForm:', lastError)
         return { success: false, error: lastError?.message || 'Database error after retries' }
 
     } catch (err: any) {

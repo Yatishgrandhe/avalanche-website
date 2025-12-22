@@ -71,6 +71,11 @@ export const supabaseAdmin = typeof window === 'undefined' && supabaseServiceRol
         headers: {
           'x-client-info': 'avalanche-admin'
         }
+      },
+      realtime: {
+        params: {
+          eventsPerSecond: 10
+        }
       }
     })
   : null
