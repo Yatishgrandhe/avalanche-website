@@ -8,9 +8,9 @@ import Image from 'next/image'
 const navItems = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Team', href: '/team-development' },
-  { name: 'Opportunities', href: '/student-opportunities' },
+  { name: 'Avalanche', href: '/avalanche-interest' },
   { name: 'Everest', href: '/everest-interest' },
+  { name: 'Opportunities', href: '/student-opportunities' },
   { name: 'Sponsors', href: '/sponsors' },
   { name: 'Scouting', href: '/scouting' },
 ]
