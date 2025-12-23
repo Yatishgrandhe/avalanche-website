@@ -6,13 +6,17 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
 // Helper function to check if a message is a schema cache error
 function isSchemaCacheError(message: string, fullMessage: string): boolean {
+  const lowerMessage = message.toLowerCase()
+  const lowerFullMessage = fullMessage.toLowerCase()
   return (
-    message.includes('Could not query the database for the schema cache') ||
-    message.includes('schema cache') ||
-    fullMessage.includes('Could not query the database for the schema cache') ||
-    fullMessage.includes('schema cache') ||
-    fullMessage.includes('PGRST002') ||
-    (fullMessage.includes('Retrying') && fullMessage.includes('schema'))
+    lowerMessage.includes('could not query the database for the schema cache') ||
+    lowerMessage.includes('schema cache') ||
+    lowerMessage.includes('retrying') ||
+    lowerFullMessage.includes('could not query the database for the schema cache') ||
+    lowerFullMessage.includes('schema cache') ||
+    lowerFullMessage.includes('pgrst002') ||
+    (lowerFullMessage.includes('retrying') && lowerFullMessage.includes('schema')) ||
+    lowerFullMessage.includes('retrying.')
   )
 }
 
