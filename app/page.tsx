@@ -3,7 +3,12 @@
 import { memo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Typewriter from '@/components/Typewriter'
+import dynamic from 'next/dynamic'
+
+const Typewriter = dynamic(() => import('@/components/Typewriter'), {
+  ssr: false,
+  loading: () => <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan pb-4">AVALANCHE</span>
+})
 
 const Home = memo(function Home() {
   return (
@@ -51,14 +56,13 @@ const Home = memo(function Home() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
-      </section >
+      </section>
 
       {/* Mission Statement */}
-      < section className="py-24 relative" >
+      <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass p-12 rounded-3xl border border-white/10 relative overflow-hidden group hover:border-accent-blue/30 transition-colors duration-500" style={{ willChange: 'border-color' }}>
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 via-transparent to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ willChange: 'opacity' }}></div>
-            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-blue/10 rounded-full blur-[60px] group-hover:bg-accent-blue/20 transition-all duration-500 animate-pulse-slow" style={{ willChange: 'opacity' }}></div>
+          <div className="glass p-12 rounded-3xl border border-white/10 relative overflow-hidden group hover:border-accent-blue/30 transition-colors duration-500">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 via-transparent to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
             <div className="relative z-10 text-center max-w-4xl mx-auto">
               <h2 className="font-display font-bold text-4xl md:text-5xl mb-8 text-white">
@@ -70,10 +74,10 @@ const Home = memo(function Home() {
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
       {/* The Cycle */}
-      < section className="py-24 relative" >
+      <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">THE CYCLE</h2>
@@ -107,25 +111,25 @@ const Home = memo(function Home() {
             />
           </div>
         </div>
-      </section >
+      </section>
 
       {/* Logos Section */}
-      < section className="py-24 border-t border-white/5 bg-white/5 backdrop-blur-sm" >
+      <section className="py-24 border-t border-white/5 bg-white/5 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-70 hover:opacity-100 transition-opacity duration-300">
-              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110" style={{ willChange: 'transform, filter' }}>
-                <Image src="/images/first-logo.png" alt="FIRST Robotics" width={160} height={160} className="object-contain" priority={false} loading="lazy" />
+              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110">
+                <Image src="/images/first-logo.png" alt="FIRST Robotics" width={160} height={160} className="object-contain" loading="lazy" />
               </div>
-              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110" style={{ willChange: 'transform, filter' }}>
-                <Image src="/images/avalanche-logo.png" alt="Avalanche Robotics" width={160} height={160} className="object-contain" priority={false} loading="lazy" />
+              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110">
+                <Image src="/images/avalanche-logo.png" alt="Avalanche Robotics" width={160} height={160} className="object-contain" loading="lazy" />
               </div>
-              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110" style={{ willChange: 'transform, filter' }}>
-                <Image src="/images/everest-logo.png" alt="Everest 31643" width={160} height={160} className="object-contain" priority={false} loading="lazy" />
+              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110">
+                <Image src="/images/everest-logo.png" alt="Everest 31643" width={160} height={160} className="object-contain" loading="lazy" />
               </div>
             </div>
         </div>
-      </section >
-    </div >
+      </section>
+    </div>
   )
 })
 
@@ -149,9 +153,8 @@ const CycleCard = memo(function CycleCard({ title, description, color, delay }: 
   return (
     <div
       className={`glass p-8 rounded-2xl border border-white/10 transition-all duration-500 hover:-translate-y-2 group ${borderClasses[color as keyof typeof borderClasses]} relative overflow-hidden`}
-      style={{ animationDelay: `${delay}ms`, willChange: 'transform, border-color' }}
+      style={{ animationDelay: `${delay}ms` }}
     >
-      <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-${color === 'blue' ? 'accent-blue' : color === 'purple' ? 'accent-purple' : color === 'cyan' ? 'accent-cyan' : 'accent-yellow'}`}></div>
       <h3 className={`font-display font-bold text-3xl mb-4 transition-colors duration-300 ${colorClasses[color as keyof typeof colorClasses]}`}>
         {title}
       </h3>
@@ -161,4 +164,5 @@ const CycleCard = memo(function CycleCard({ title, description, color, delay }: 
     </div>
   )
 })
+
 

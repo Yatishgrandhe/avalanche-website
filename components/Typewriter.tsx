@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { memo } from 'react'
 
 interface TypewriterProps {
     text: string | string[]
@@ -11,7 +12,7 @@ interface TypewriterProps {
     className?: string
 }
 
-export default function Typewriter({
+const Typewriter = memo(function Typewriter({
     text,
     speed = 100,
     delay = 1000,
@@ -23,23 +24,31 @@ export default function Typewriter({
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isDeleting, setIsDeleting] = useState(false)
     const [textIndex, setTextIndex] = useState(0)
-
     const [mounted, setMounted] = useState(false)
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
     useEffect(() => {
         setMounted(true)
     }, [])
 
+    const texts = Array.isArray(text) ? text : [text]
+
     useEffect(() => {
         if (!mounted) return
 
-        const texts = Array.isArray(text) ? text : [text]
         const currentText = texts[textIndex % texts.length]
 
-        const timeout = setTimeout(() => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current)
+        }
+
+        timeoutRef.current = setTimeout(() => {
             if (!isDeleting) {
                 if (currentIndex < currentText.length) {
-                    setDisplayText((prev) => prev + currentText[currentIndex])
+                    setDisplayText((prev) => {
+                        const nextChar = currentText[currentIndex]
+                        return prev + nextChar
+                    })
                     setCurrentIndex((prev) => prev + 1)
                 } else if (loop) {
                     setTimeout(() => setIsDeleting(true), delay)
@@ -50,17 +59,20 @@ export default function Typewriter({
                     setCurrentIndex((prev) => prev - 1)
                 } else {
                     setIsDeleting(false)
-                    setTextIndex((prev) => prev + 1)
+                    setTextIndex((prev) => (prev + 1) % texts.length)
                 }
             }
         }, isDeleting ? speed / 2 : speed)
 
-        return () => clearTimeout(timeout)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentIndex, isDeleting, textIndex, mounted])
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+        }
+    }, [currentIndex, isDeleting, textIndex, mounted, texts, speed, delay, loop])
 
     if (!mounted) {
-        return <span className={className}>{Array.isArray(text) ? text[0] : text}</span>
+        return <span className={className}>{texts[0]}</span>
     }
 
     return (
@@ -69,4 +81,6 @@ export default function Typewriter({
             {cursor && <span className="animate-pulse">|</span>}
         </span>
     )
-}
+})
+
+export default Typewriter
