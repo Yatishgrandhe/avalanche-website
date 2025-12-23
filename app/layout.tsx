@@ -11,6 +11,11 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 export const metadata: Metadata = {
   title: "Avalanche Robotics | FRC 2724 & FTC 31643",
   description: "Avalanche Robotics and Everest Robotics teams from Charlotte, North Carolina. Innovating the future through STEM education and competition.",
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
