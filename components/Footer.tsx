@@ -23,7 +23,7 @@ export default function Footer() {
                   src="/images/avalanche-logo.png"
                   alt="Avalanche"
                   fill
-                  className="object-contain"
+                  className="object-contain brightness-0 invert"
                 />
               </div>
               <div className="flex flex-col">
@@ -82,12 +82,7 @@ export default function Footer() {
                   avalanche2724@gmail.com
                 </a>
               </li>
-              <li>
-                <a href="mailto:everest31643@gmail.com" className="text-gray-400 hover:text-accent-blue transition-colors text-sm flex items-center group">
-                  <span className="w-2 h-2 bg-accent-purple rounded-full mr-3 group-hover:scale-150 transition-transform duration-300"></span>
-                  everest31643@gmail.com
-                </a>
-              </li>
+
             </ul>
           </div>
         </div>

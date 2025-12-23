@@ -4,9 +4,9 @@ import Timeline from '@/components/Timeline'
 import Typewriter from '@/components/Typewriter'
 
 const robots = [
-  { date: '2024', title: 'Zelda', description: 'FIRST Crescendo Off Season Bot' },
-  { date: '2024-2025', title: 'Frosbyte', description: 'FIRST Reefscape Bot' },
-  { date: '2025-2026', title: '?', description: 'FIRST Age Bot' },
+  { date: '2024', title: 'Zelda', description: 'FIRST Crescendo Off Season Bot', image: '/images/robot-placeholder.png' },
+  { date: '2024-2025', title: 'Frosbyte', description: 'FIRST Reefscape Bot', image: '/images/robot-placeholder.png' },
+  { date: '2025-2026', title: '?', description: 'FIRST Age Bot', image: '/images/robot-placeholder.png' },
 ]
 
 export default function TeamDevelopment() {
@@ -88,7 +88,7 @@ export default function TeamDevelopment() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-accent-purple/10 rounded-full blur-[50px] animate-pulse-slow"></div>
             <div className="relative z-10">
               <h3 className="font-display font-bold text-xl text-gray-400 mb-2">2025-2026 SEASON</h3>
-              <div className="text-6xl font-bold text-white mb-2 tracking-tight">459.25</div>
+              <div className="text-6xl font-bold text-white mb-2 tracking-tight">950+</div>
               <p className="text-accent-purple font-medium tracking-wider">HOURS LOGGED</p>
             </div>
           </div>

@@ -10,6 +10,7 @@ const navItems = [
   { name: 'About', href: '/about' },
   { name: 'Team', href: '/team-development' },
   { name: 'Opportunities', href: '/student-opportunities' },
+  { name: 'Everest', href: '/everest-interest' },
   { name: 'Sponsors', href: '/sponsors' },
   { name: 'Scouting', href: '/scouting' },
 ]
@@ -37,8 +38,8 @@ export default function Navigation() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? 'bg-slate-950/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg'
-          : 'bg-transparent py-6'
+        ? 'bg-slate-950/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg'
+        : 'bg-transparent py-6'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,8 +70,8 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden group ${isActive
-                      ? 'text-white'
-                      : 'text-gray-300 hover:text-white'
+                    ? 'text-white'
+                    : 'text-gray-300 hover:text-white'
                     }`}
                 >
                   {isActive && (
@@ -116,8 +117,8 @@ export default function Navigation() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${isActive
-                    ? 'bg-accent-blue/20 text-accent-blue border border-accent-blue/30'
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-accent-blue/20 text-accent-blue border border-accent-blue/30'
+                  : 'text-gray-300 hover:text-white hover:bg-white/5'
                   }`}
               >
                 {item.name}

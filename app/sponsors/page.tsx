@@ -20,9 +20,9 @@ const sponsors2025_2026 = [
   'Bobcat',
   'Salant Family Foundation',
   'Gene Haas Foundation',
-  'YOUR COMPANY',
-  'YOUR COMPANY',
-  'YOUR COMPANY',
+  'NASA',
+  'Kimley-Horn',
+  'AFI Systems',
 ]
 
 export default function Sponsors() {
@@ -79,8 +79,8 @@ export default function Sponsors() {
               <div
                 key={index}
                 className={`p-6 rounded-xl border flex items-center justify-center text-center min-h-[100px] transition-all duration-300 hover:-translate-y-1 ${sponsor === 'YOUR COMPANY'
-                    ? 'bg-accent-yellow/10 border-accent-yellow/30 text-accent-yellow hover:bg-accent-yellow/20 cursor-pointer animate-pulse-slow'
-                    : 'glass border-white/10 text-gray-200 hover:bg-white/10'
+                  ? 'bg-accent-yellow/10 border-accent-yellow/30 text-accent-yellow hover:bg-accent-yellow/20 cursor-pointer animate-pulse-slow'
+                  : 'glass border-white/10 text-gray-200 hover:bg-white/10'
                   }`}
               >
                 <span className="font-semibold">{sponsor}</span>

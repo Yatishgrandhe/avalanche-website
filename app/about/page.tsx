@@ -7,8 +7,8 @@ import Image from 'next/image'
 const achievements = [
   { date: 'May 2024', title: 'Team Inception', description: 'Founded with a vision to inspire students in STEM.' },
   { date: 'July 2024', title: 'Built Offseason Robot', description: 'First robot construction and testing phase.' },
-  { date: 'February 2025', title: 'Won Rising Allstar Award', description: 'Recognized for potential and early success.' },
-  { date: 'March 2025', title: 'Built First Season Bot', description: 'Won Creativity Award for innovative design.' },
+  { date: 'February 2025', title: 'Built First Season Bot', description: 'Constructed our first competition robot for the season.' },
+  { date: 'March 2025', title: 'Won Rising Allstar Award', description: 'Recognized for potential and early success at our first event.' },
   { date: 'April 2025', title: 'District Championship', description: 'Won Rising Allstar Award at the district level.' },
   { date: 'May 2025', title: 'World Championship', description: 'Competed at the international level. Started offseason year 2.' },
   { date: 'May 2025', title: 'Added Outreach Requirement', description: 'Commitment to community service and engagement.' },

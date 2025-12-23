@@ -4,6 +4,7 @@ interface TimelineItem {
   date: string
   title: string
   description?: string
+  image?: string
 }
 
 interface TimelineProps {
@@ -37,6 +38,15 @@ export default function Timeline({ items }: TimelineProps) {
                 <h3 className={`relative z-10 text-white font-bold text-xl mb-2 ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
                   {item.title}
                 </h3>
+                {item.image && (
+                  <div className="mb-4 relative h-48 w-full rounded-lg overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="object-cover w-full h-full transform hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                )}
                 {item.description && (
                   <p className={`relative z-10 text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
                     {item.description}
