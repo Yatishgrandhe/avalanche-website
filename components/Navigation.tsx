@@ -38,7 +38,7 @@ export default function Navigation() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-        ? 'bg-slate-950/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg'
+        ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200 py-3 shadow-lg'
         : 'bg-transparent py-6'
         }`}
     >
@@ -55,8 +55,8 @@ export default function Navigation() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-display font-bold text-lg leading-none tracking-wide text-white group-hover:text-accent-blue transition-colors duration-300">AVALANCHE</span>
-              <span className="text-xs text-gray-400 tracking-wider group-hover:text-gray-300 transition-colors duration-300">ROBOTICS 2724</span>
+              <span className="font-display font-bold text-lg leading-none tracking-wide text-slate-900 group-hover:text-accent-blue transition-colors duration-300">AVALANCHE</span>
+              <span className="text-xs text-slate-500 tracking-wider group-hover:text-slate-700 transition-colors duration-300">ROBOTICS 2724</span>
             </div>
           </Link>
 
@@ -70,14 +70,14 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden group ${isActive
-                    ? 'text-white'
-                    : 'text-gray-300 hover:text-white'
+                    ? 'text-slate-900'
+                    : 'text-slate-600 hover:text-slate-900'
                     }`}
                 >
                   {isActive && (
-                    <div className="absolute inset-0 bg-accent-blue/20 border border-accent-blue/50 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.3)]"></div>
+                    <div className="absolute inset-0 bg-accent-blue/10 border border-accent-blue/30 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.1)]"></div>
                   )}
-                  <div className={`absolute inset-0 bg-white/5 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full ${isActive ? 'hidden' : ''}`}></div>
+                  <div className={`absolute inset-0 bg-slate-100 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full ${isActive ? 'hidden' : ''}`}></div>
                   <span className="relative z-10">{item.name}</span>
                 </Link>
               )
@@ -88,7 +88,7 @@ export default function Navigation() {
           <div className="md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-300 hover:text-white p-2 transition-colors"
+              className="text-slate-900 hover:text-accent-blue p-2 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {mobileMenuOpen ? (
@@ -104,7 +104,7 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 bg-slate-950/95 backdrop-blur-xl border-b border-white/10 transition-all duration-300 overflow-hidden ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        className={`md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-slate-200 transition-all duration-300 overflow-hidden ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
       >
         <div className="px-4 py-4 space-y-2">
@@ -117,8 +117,8 @@ export default function Navigation() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${isActive
-                  ? 'bg-accent-blue/20 text-accent-blue border border-accent-blue/30'
-                  : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-accent-blue/10 text-accent-blue border border-accent-blue/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
               >
                 {item.name}

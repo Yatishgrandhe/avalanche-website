@@ -8,7 +8,7 @@ export default function Scouting() {
     <div className="relative min-h-screen pb-20">
       {/* Header */}
       <div className="relative pt-20 pb-16 text-center">
-        <h1 className="font-display font-bold text-5xl md:text-6xl text-white mb-4 animate-fade-in">
+        <h1 className="font-display font-bold text-5xl md:text-6xl text-slate-900 mb-4 animate-fade-in">
           SCOUTING
         </h1>
         <p className="text-xl text-accent-blue font-medium animate-slide-up">
@@ -20,12 +20,12 @@ export default function Scouting() {
         <div className="flex flex-col items-center justify-center animate-fade-in">
 
           {/* Main Card */}
-          <div className="glass p-12 rounded-3xl border border-white/10 max-w-4xl w-full text-center relative overflow-hidden group mb-12">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent-blue/10 rounded-full blur-[100px] group-hover:bg-accent-blue/20 transition-all duration-500"></div>
+          <div className="bg-white p-12 rounded-3xl border border-slate-200 shadow-xl max-w-4xl w-full text-center relative overflow-hidden group mb-12">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent-blue/5 rounded-full blur-[100px] group-hover:bg-accent-blue/10 transition-all duration-500"></div>
 
             <div className="relative z-10">
-              <h2 className="font-display font-bold text-3xl text-white mb-6">Access Our Scouting System</h2>
-              <p className="text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+              <h2 className="font-display font-bold text-3xl text-slate-900 mb-6">Access Our Scouting System</h2>
+              <p className="text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
                 Leverage real-time data and analytics to make informed strategic decisions during competitions. Our custom scouting system provides comprehensive match insights.
               </p>
 

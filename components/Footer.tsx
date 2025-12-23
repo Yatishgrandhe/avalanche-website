@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 border-t border-white/10 pt-16 pb-8 relative overflow-hidden">
+    <footer className="bg-slate-100 border-t border-slate-200 pt-16 pb-8 relative overflow-hidden">
       {/* Gradient Top Border */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent-blue to-transparent opacity-50"></div>
 
@@ -23,15 +23,15 @@ export default function Footer() {
                   src="/images/avalanche-logo.png"
                   alt="Avalanche"
                   fill
-                  className="object-contain brightness-0 invert"
+                  className="object-contain"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-bold text-xl leading-none tracking-wide text-white group-hover:text-accent-blue transition-colors duration-300">AVALANCHE</span>
-                <span className="text-sm text-gray-400 tracking-wider">ROBOTICS 2724</span>
+                <span className="font-display font-bold text-xl leading-none tracking-wide text-slate-900 group-hover:text-accent-blue transition-colors duration-300">AVALANCHE</span>
+                <span className="text-sm text-slate-500 tracking-wider">ROBOTICS 2724</span>
               </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-slate-600 text-sm leading-relaxed mb-6">
               Inspiring the next generation of innovators through STEM education and robotics competition.
             </p>
             <div className="flex space-x-4">
@@ -45,7 +45,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-display font-semibold mb-6 relative inline-block">
+            <h3 className="text-slate-900 font-display font-semibold mb-6 relative inline-block">
               Quick Links
               <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-accent-blue rounded-full"></span>
             </h3>
@@ -58,41 +58,40 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Join Us */}
           <div>
-            <h3 className="text-white font-display font-semibold mb-6 relative inline-block">
+            <h3 className="text-slate-900 font-display font-semibold mb-6 relative inline-block">
               Join Us
               <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-accent-purple rounded-full"></span>
             </h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-relaxed">
               Interest form submissions are currently closed. Please check back later for future opportunities.
             </p>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-display font-semibold mb-6 relative inline-block">
+            <h3 className="text-slate-900 font-display font-semibold mb-6 relative inline-block">
               Contact
               <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-accent-cyan rounded-full"></span>
             </h3>
             <ul className="space-y-3">
               <li>
-                <a href="mailto:avalanche2724@gmail.com" className="text-gray-400 hover:text-accent-blue transition-colors text-sm flex items-center group">
+                <a href="mailto:avalanche2724@gmail.com" className="text-slate-600 hover:text-accent-blue transition-colors text-sm flex items-center group">
                   <span className="w-2 h-2 bg-accent-blue rounded-full mr-3 group-hover:scale-150 transition-transform duration-300"></span>
                   avalanche2724@gmail.com
                 </a>
               </li>
-
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm">
+        <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-slate-500 text-sm">
             &copy; {new Date().getFullYear()} Avalanche Robotics. All rights reserved.
           </p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <Link href="/admin" className="text-gray-500 hover:text-white text-sm transition-colors hover:underline">
+            <Link href="/admin" className="text-slate-500 hover:text-slate-900 text-sm transition-colors hover:underline">
               Admin Access
             </Link>
           </div>
@@ -105,7 +104,7 @@ export default function Footer() {
 function FooterLink({ href, children }: { href: string, children: React.ReactNode }) {
   return (
     <li>
-      <Link href={href} className="text-gray-400 hover:text-white transition-all duration-200 text-sm block hover:translate-x-1 hover:text-shadow-glow">
+      <Link href={href} className="text-slate-600 hover:text-slate-900 transition-all duration-200 text-sm block hover:translate-x-1 hover:text-shadow-glow">
         {children}
       </Link>
     </li>
@@ -118,7 +117,7 @@ function SocialLink({ href, icon, color }: { href: string, icon: string, color: 
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 transition-all duration-300 hover:text-white hover:-translate-y-1 hover:shadow-lg ${color}`}
+      className={`w-10 h-10 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-400 transition-all duration-300 hover:text-white hover:-translate-y-1 hover:shadow-lg ${color}`}
     >
       <span className="sr-only">{icon}</span>
       {/* Simple SVG icons based on the type */}

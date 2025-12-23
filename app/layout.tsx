@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${outfit.variable} font-sans min-h-screen flex flex-col bg-primary-dark text-white overflow-x-hidden`}>
+      <body className={`${inter.variable} ${outfit.variable} font-sans min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden`}>
         <Background />
         <Navigation />
         <main className="flex-grow relative z-10 pt-16">{children}</main>
