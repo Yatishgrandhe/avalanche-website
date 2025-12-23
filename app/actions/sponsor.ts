@@ -13,65 +13,56 @@ export async function submitSponsorForm(formData: {
     sponsorship_level?: string
     message?: string
 }) {
-    try {
-        if (!supabaseUrl || !supabaseServiceRoleKey) {
-            return { success: false, error: 'Database configuration missing' }
+    if (!supabaseUrl || !supabaseServiceRoleKey) {
+        return { success: false, error: 'Database configuration missing' }
+    }
+
+    // Create Supabase client with service role key for server-side operations
+    // Based on Supabase documentation: https://supabase.com/docs/reference/javascript/insert
+    const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false
         }
+    })
 
-        // Create Supabase admin client with service role key for server-side operations
-        // Initialize inside function to ensure fresh instance
-        const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
-            auth: {
-                autoRefreshToken: false,
-                persistSession: false
-            },
-            db: {
-                schema: 'public'
-            },
-            global: {
-                headers: {
-                    'x-client-info': 'avalanche-sponsor-form'
-                }
-            }
-        })
+    // Insert data following Supabase best practices
+    // Pattern from: https://supabase.com/docs/reference/javascript/insert
+    const { data, error } = await supabase
+        .from('sponsor_submissions')
+        .insert([{
+            company_name: formData.company_name.trim(),
+            contact_person_name: formData.contact_person_name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone?.trim() || null,
+            sponsorship_level: formData.sponsorship_level?.trim() || null,
+            message: formData.message?.trim() || null
+        }])
+        .select()
 
-        // Direct insert - schema cache errors are non-critical and won't affect this operation
-        const { data, error } = await supabase
-            .from('sponsor_submissions')
-            .insert([{
-                company_name: formData.company_name,
-                contact_person_name: formData.contact_person_name,
-                email: formData.email,
-                phone: formData.phone || null,
-                sponsorship_level: formData.sponsorship_level || null,
-                message: formData.message || null
-            }])
-            .select()
-
-        if (error) {
-            // Only return error if it's a real database error, not schema cache issues
-            const errorMessage = error.message || String(error)
-            if (errorMessage.includes('schema cache') || error.code === 'PGRST002') {
-                // Schema cache errors are non-critical - check if data was actually inserted
-                // If we got here, the insert likely failed, so return a user-friendly message
-                return { success: false, error: 'Unable to submit form at this time. Please try again.' }
-            }
-            return { success: false, error: error.message || 'Database error' }
-        }
-
-        if (!data || data.length === 0) {
-            return { success: false, error: 'No data returned from database' }
-        }
-
+    // If we have data, the insert succeeded regardless of any warnings
+    if (data && data.length > 0) {
         return { success: true, data: data[0] }
+    }
 
-    } catch (err: any) {
-        // Ignore schema cache errors - they're non-critical
-        const errorMessage = err?.message || String(err || '')
-        if (errorMessage.includes('schema cache') || err?.code === 'PGRST002') {
+    // Only return error if there's no data AND there's a real error
+    // Schema cache errors (PGRST002) are warnings and don't prevent inserts
+    if (error) {
+        const errorCode = error.code || ''
+        const errorMessage = error.message || ''
+        
+        // Schema cache errors are non-critical - if we have data, ignore the error
+        if (errorCode === 'PGRST002' || errorMessage.toLowerCase().includes('schema cache')) {
+            // Schema cache warnings shouldn't prevent inserts
+            // If we got here without data, it's likely a real issue
             return { success: false, error: 'Unable to submit form at this time. Please try again.' }
         }
-        return { success: false, error: err?.message || 'An error occurred while submitting the form' }
+        
+        // Real database error
+        return { success: false, error: errorMessage || 'Database error occurred' }
     }
+
+    // No data and no error - shouldn't happen, but handle it
+    return { success: false, error: 'No data returned from database' }
 }
 
