@@ -14,7 +14,10 @@ export async function submitSponsorForm(formData: {
     message?: string
 }) {
     if (!supabaseUrl || !supabaseServiceRoleKey) {
-        console.error('Sponsor form: Missing database configuration')
+        console.error('Sponsor form: Missing database configuration', {
+            hasUrl: !!supabaseUrl,
+            hasKey: !!supabaseServiceRoleKey
+        })
         return { success: false, error: 'Database configuration missing' }
     }
 
@@ -25,21 +28,15 @@ export async function submitSponsorForm(formData: {
 
     // Create Supabase client with service role key for server-side operations
     // Service role key bypasses RLS policies
-    // Following the pattern from Avavanchescoutingwebsite/lib/supabase.ts
     const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
         auth: {
             autoRefreshToken: false,
             persistSession: false
-        },
-        global: {
-            headers: {
-                'X-Client-Info': 'avalanche-sponsor-form'
-            }
         }
     })
 
     try {
-        // Prepare insert data - matching the pattern from Avavanchescoutingwebsite
+        // Prepare insert data
         const insertData = {
             company_name: formData.company_name.trim(),
             contact_person_name: formData.contact_person_name.trim(),
@@ -49,20 +46,34 @@ export async function submitSponsorForm(formData: {
             message: formData.message?.trim() || null
         }
 
-        // Insert data using the exact pattern from Avavanchescoutingwebsite/lib/supabase.ts
-        // Using .single() to get a single object back instead of an array
+        console.log('Sponsor form: Starting insert to', supabaseUrl)
+        console.log('Sponsor form: Insert data:', JSON.stringify(insertData, null, 2))
+
+        // Insert data - simplest possible pattern
         const { data, error } = await supabase
             .from('sponsor_submissions')
             .insert([insertData])
             .select()
-            .single()
 
-        // If error, handle it
+        console.log('Sponsor form: Insert response:', {
+            hasData: !!data,
+            dataLength: data?.length || 0,
+            hasError: !!error,
+            errorCode: error?.code,
+            errorMessage: error?.message
+        })
+
+        // ALWAYS check data first - if we have data, insert succeeded
+        if (data && Array.isArray(data) && data.length > 0) {
+            console.log('Sponsor form: SUCCESS - data returned:', data[0])
+            return { success: true, data: data[0] }
+        }
+
+        // Only handle errors if we don't have data
         if (error) {
             const errorCode = String(error.code || '')
             const errorMessage = String(error.message || '')
             
-            // Log full error details for debugging
             console.error('Sponsor form insert error:', {
                 code: errorCode,
                 message: errorMessage,
@@ -79,22 +90,29 @@ export async function submitSponsorForm(formData: {
                 return { success: false, error: 'Please fill in all required fields' }
             }
             
-            // Schema cache errors - return user-friendly message
+            // For schema cache errors, verify if insert actually succeeded
             if (errorCode === 'PGRST002' || errorMessage.toLowerCase().includes('schema cache')) {
+                // Wait and verify
+                await new Promise(resolve => setTimeout(resolve, 1000))
+                
+                const { data: verifyData } = await supabase
+                    .from('sponsor_submissions')
+                    .select()
+                    .eq('email', insertData.email)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                
+                if (verifyData && verifyData.length > 0) {
+                    return { success: true, data: verifyData[0] }
+                }
+                
                 return { success: false, error: 'Unable to submit form at this time. Please try again.' }
             }
             
-            // Return the error message
             return { success: false, error: errorMessage || 'Database error occurred. Please try again.' }
         }
 
-        // Success - data is returned as a single object (not array) because of .single()
-        if (data) {
-            return { success: true, data }
-        }
-
-        // No data returned - shouldn't happen
-        console.error('Sponsor form: No data returned')
+        // No data and no error
         return { success: false, error: 'No data returned from database. Please try again.' }
 
     } catch (err: any) {
