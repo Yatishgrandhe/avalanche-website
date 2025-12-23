@@ -49,36 +49,27 @@ export async function submitSponsorForm(formData: {
         console.log('Sponsor form: Starting insert to', supabaseUrl)
         console.log('Sponsor form: Insert data:', JSON.stringify(insertData, null, 2))
 
-        // Insert data - simplest possible pattern
-        const { data, error } = await supabase
+        // Insert data - try insert first without select to avoid schema cache issues
+        const insertResult = await supabase
             .from('sponsor_submissions')
             .insert([insertData])
-            .select()
 
-        console.log('Sponsor form: Insert response:', {
-            hasData: !!data,
-            dataLength: data?.length || 0,
-            hasError: !!error,
-            errorCode: error?.code,
-            errorMessage: error?.message
+        console.log('Sponsor form: Insert result (without select):', {
+            hasError: !!insertResult.error,
+            errorCode: insertResult.error?.code,
+            errorMessage: insertResult.error?.message
         })
 
-        // ALWAYS check data first - if we have data, insert succeeded
-        if (data && Array.isArray(data) && data.length > 0) {
-            console.log('Sponsor form: SUCCESS - data returned:', data[0])
-            return { success: true, data: data[0] }
-        }
-
-        // Only handle errors if we don't have data
-        if (error) {
-            const errorCode = String(error.code || '')
-            const errorMessage = String(error.message || '')
+        // If insert failed, handle the error
+        if (insertResult.error) {
+            const errorCode = String(insertResult.error.code || '')
+            const errorMessage = String(insertResult.error.message || '')
             
             console.error('Sponsor form insert error:', {
                 code: errorCode,
                 message: errorMessage,
-                details: error.details || '',
-                hint: error.hint || ''
+                details: insertResult.error.details || '',
+                hint: insertResult.error.hint || ''
             })
             
             // Handle specific PostgreSQL error codes
@@ -90,30 +81,42 @@ export async function submitSponsorForm(formData: {
                 return { success: false, error: 'Please fill in all required fields' }
             }
             
-            // For schema cache errors, verify if insert actually succeeded
-            if (errorCode === 'PGRST002' || errorMessage.toLowerCase().includes('schema cache')) {
-                // Wait and verify
-                await new Promise(resolve => setTimeout(resolve, 1000))
-                
-                const { data: verifyData } = await supabase
-                    .from('sponsor_submissions')
-                    .select()
-                    .eq('email', insertData.email)
-                    .order('created_at', { ascending: false })
-                    .limit(1)
-                
-                if (verifyData && verifyData.length > 0) {
-                    return { success: true, data: verifyData[0] }
-                }
-                
-                return { success: false, error: 'Unable to submit form at this time. Please try again.' }
-            }
-            
             return { success: false, error: errorMessage || 'Database error occurred. Please try again.' }
         }
 
-        // No data and no error
-        return { success: false, error: 'No data returned from database. Please try again.' }
+        // Insert succeeded! Now try to get the data back
+        // If select fails, we still consider it a success since insert worked
+        const { data, error: selectError } = await supabase
+            .from('sponsor_submissions')
+            .select()
+            .eq('email', insertData.email)
+            .order('created_at', { ascending: false })
+            .limit(1)
+
+        console.log('Sponsor form: Select result:', {
+            hasData: !!data,
+            dataLength: data?.length || 0,
+            hasError: !!selectError,
+            errorCode: selectError?.code,
+            errorMessage: selectError?.message
+        })
+
+        // If we have data, return it
+        if (data && Array.isArray(data) && data.length > 0) {
+            console.log('Sponsor form: SUCCESS - data returned:', data[0])
+            return { success: true, data: data[0] }
+        }
+
+        // Insert succeeded but select failed - still return success since insert worked
+        // This handles schema cache errors gracefully
+        if (selectError) {
+            const selectErrorCode = String(selectError.code || '')
+            console.warn('Sponsor form: Insert succeeded but select failed:', selectErrorCode, selectError.message)
+        }
+        
+        // Return success even if select failed - the insert succeeded
+        console.log('Sponsor form: SUCCESS - insert succeeded (select may have failed due to schema cache)')
+        return { success: true, data: { ...insertData, id: 'pending', created_at: new Date().toISOString() } }
 
     } catch (err: any) {
         // Catch any unexpected errors
