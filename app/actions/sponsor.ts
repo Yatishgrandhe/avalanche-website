@@ -6,11 +6,23 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 // Custom fetch that intercepts schema cache requests and handles them silently
-const customFetch = (url: string, options?: RequestInit) => {
+const customFetch = (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+  // Convert input to string for checking
+  let url: string
+  if (typeof input === 'string') {
+    url = input
+  } else if (input instanceof URL) {
+    url = input.toString()
+  } else if (input instanceof Request) {
+    url = input.url
+  } else {
+    url = String(input)
+  }
+  
   // Check if this is a schema introspection request
   const isSchemaRequest = url.includes('/rest/v1/') && !url.match(/\/rest\/v1\/[^/]+/) && !url.includes('?')
   
-  return fetch(url, options).catch((error) => {
+  return fetch(input, init).catch((error) => {
     // Silently handle schema cache errors
     if (isSchemaRequest || error.message?.includes('schema cache')) {
       // Return a mock response for schema requests that fail
