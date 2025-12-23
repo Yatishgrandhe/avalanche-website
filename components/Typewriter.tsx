@@ -56,7 +56,8 @@ export default function Typewriter({
         }, isDeleting ? speed / 2 : speed)
 
         return () => clearTimeout(timeout)
-    }, [currentIndex, isDeleting, text, speed, delay, loop, textIndex, mounted])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentIndex, isDeleting, textIndex, mounted])
 
     if (!mounted) {
         return <span className={className}>{Array.isArray(text) ? text[0] : text}</span>

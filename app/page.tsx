@@ -1,10 +1,11 @@
 'use client'
 
+import { memo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Typewriter from '@/components/Typewriter'
 
-export default function Home() {
+const Home = memo(function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Hero Section */}
@@ -55,9 +56,9 @@ export default function Home() {
       {/* Mission Statement */}
       < section className="py-24 relative" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass p-12 rounded-3xl border border-white/10 relative overflow-hidden group hover:border-accent-blue/30 transition-colors duration-500">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 via-transparent to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-blue/10 rounded-full blur-[80px] group-hover:bg-accent-blue/20 transition-all duration-500 animate-pulse-slow"></div>
+          <div className="glass p-12 rounded-3xl border border-white/10 relative overflow-hidden group hover:border-accent-blue/30 transition-colors duration-500" style={{ willChange: 'border-color' }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 via-transparent to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ willChange: 'opacity' }}></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-blue/10 rounded-full blur-[60px] group-hover:bg-accent-blue/20 transition-all duration-500 animate-pulse-slow" style={{ willChange: 'opacity' }}></div>
 
             <div className="relative z-10 text-center max-w-4xl mx-auto">
               <h2 className="font-display font-bold text-4xl md:text-5xl mb-8 text-white">
@@ -111,24 +112,26 @@ export default function Home() {
       {/* Logos Section */}
       < section className="py-24 border-t border-white/5 bg-white/5 backdrop-blur-sm" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-70 hover:opacity-100 transition-opacity duration-300">
-            <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110">
-              <Image src="/images/first-logo.png" alt="FIRST Robotics" width={160} height={160} className="object-contain" />
+            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-70 hover:opacity-100 transition-opacity duration-300">
+              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110" style={{ willChange: 'transform, filter' }}>
+                <Image src="/images/first-logo.png" alt="FIRST Robotics" width={160} height={160} className="object-contain" priority={false} loading="lazy" />
+              </div>
+              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110" style={{ willChange: 'transform, filter' }}>
+                <Image src="/images/avalanche-logo.png" alt="Avalanche Robotics" width={160} height={160} className="object-contain" priority={false} loading="lazy" />
+              </div>
+              <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110" style={{ willChange: 'transform, filter' }}>
+                <Image src="/images/everest-logo.png" alt="Everest 31643" width={160} height={160} className="object-contain" priority={false} loading="lazy" />
+              </div>
             </div>
-            <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110">
-              <Image src="/images/avalanche-logo.png" alt="Avalanche Robotics" width={160} height={160} className="object-contain" />
-            </div>
-            <div className="w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110">
-              <Image src="/images/everest-logo.png" alt="Everest 31643" width={160} height={160} className="object-contain" />
-            </div>
-          </div>
         </div>
       </section >
     </div >
   )
-}
+})
 
-function CycleCard({ title, description, color, delay }: { title: string, description: string, color: string, delay: number }) {
+export default Home
+
+const CycleCard = memo(function CycleCard({ title, description, color, delay }: { title: string, description: string, color: string, delay: number }) {
   const colorClasses = {
     blue: "text-accent-blue group-hover:text-accent-blue",
     purple: "text-accent-purple group-hover:text-accent-purple",
@@ -146,7 +149,7 @@ function CycleCard({ title, description, color, delay }: { title: string, descri
   return (
     <div
       className={`glass p-8 rounded-2xl border border-white/10 transition-all duration-500 hover:-translate-y-2 group ${borderClasses[color as keyof typeof borderClasses]} relative overflow-hidden`}
-      style={{ animationDelay: `${delay}ms` }}
+      style={{ animationDelay: `${delay}ms`, willChange: 'transform, border-color' }}
     >
       <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-${color === 'blue' ? 'accent-blue' : color === 'purple' ? 'accent-purple' : color === 'cyan' ? 'accent-cyan' : 'accent-yellow'}`}></div>
       <h3 className={`font-display font-bold text-3xl mb-4 transition-colors duration-300 ${colorClasses[color as keyof typeof colorClasses]}`}>
@@ -157,5 +160,5 @@ function CycleCard({ title, description, color, delay }: { title: string, descri
       </p>
     </div>
   )
-}
+})
 
