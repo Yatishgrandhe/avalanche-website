@@ -43,7 +43,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const minHeight = isLarge ? 'min-h-[200px] md:min-h-[240px]' : 'min-h-[160px]'
 
   const content = (
-    <div className={`bg-slate-900 p-8 rounded-xl border border-slate-700 shadow-md flex items-center justify-center text-center ${minHeight} hover:bg-slate-800 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
+    <div className={`bg-slate-800 p-8 rounded-xl border border-slate-600 shadow-lg flex items-center justify-center text-center ${minHeight} hover:bg-slate-700 hover:border-slate-500 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
       {sponsor.logo && !imageError ? (
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
@@ -60,7 +60,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
           )}
         </div>
       ) : (
-        <span className="font-semibold text-slate-300 group-hover:text-white transition-colors text-lg">{sponsor.name}</span>
+        <span className="font-semibold text-slate-200 group-hover:text-white transition-colors text-lg">{sponsor.name}</span>
       )}
     </div>
   )
