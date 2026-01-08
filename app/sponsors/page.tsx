@@ -20,6 +20,7 @@ const sponsors2024_2025: Sponsor[] = [
   { name: 'RTX', logo: '/images/sponsors/rtx-logo.png', website: 'https://www.rtx.com' },
   { name: 'NASA', logo: '/images/sponsors/nasa-logo.png', website: 'https://www.nasa.gov' },
   { name: 'Synchrony', logo: '/images/sponsors/synchrony-logo.png', website: 'https://www.synchrony.com' },
+  { name: 'Robotics', logo: '/images/sponsors/robotics-logo.png' },
 ]
 
 const sponsors2025_2026: Sponsor[] = [
@@ -29,6 +30,7 @@ const sponsors2025_2026: Sponsor[] = [
   { name: 'NASA', logo: '/images/sponsors/nasa-logo.png', website: 'https://www.nasa.gov' },
   { name: 'Kimley-Horn', logo: '/images/sponsors/kimley-horn-logo.png', website: 'https://www.kimley-horn.com' },
   { name: 'AFI Systems', logo: '/images/sponsors/afi-systems-logo.png' },
+  { name: 'Robotics', logo: '/images/sponsors/robotics-logo.png' },
 ]
 
 function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
@@ -36,15 +38,15 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const content = (
-    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-md flex items-center justify-center text-center min-h-[120px] hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
+    <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-md flex items-center justify-center text-center min-h-[160px] hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
       {sponsor.logo && !imageError ? (
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
             src={sponsor.logo}
             alt={`${sponsor.name} logo`}
-            width={150}
-            height={80}
-            className={`object-contain max-h-20 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            width={250}
+            height={120}
+            className={`object-contain max-h-32 md:max-h-40 w-auto transition-all duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onError={() => setImageError(true)}
             onLoad={() => setImageLoaded(true)}
           />
@@ -53,7 +55,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
           )}
         </div>
       ) : (
-        <span className="font-semibold text-slate-700 group-hover:text-slate-900 transition-colors">{sponsor.name}</span>
+        <span className="font-semibold text-slate-700 group-hover:text-slate-900 transition-colors text-lg">{sponsor.name}</span>
       )}
     </div>
   )
