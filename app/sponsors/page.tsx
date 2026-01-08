@@ -41,11 +41,12 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const isLarge = sponsor.large || false
   const maxHeight = isLarge ? 'max-h-48 md:max-h-56' : 'max-h-32 md:max-h-40'
   const minHeight = isLarge ? 'min-h-[200px] md:min-h-[240px]' : 'min-h-[160px]'
+  const isSalant = sponsor.name === 'Salant Family Foundation'
 
   const content = (
-    <div className={`bg-slate-800 p-8 rounded-xl border border-slate-600 shadow-lg flex items-center justify-center text-center ${minHeight} hover:bg-slate-700 hover:border-slate-500 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
+    <div className={`bg-white p-8 rounded-xl border border-slate-200 shadow-md flex items-center justify-center text-center ${minHeight} hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
       {sponsor.logo && !imageError ? (
-        <div className="relative w-full h-full flex items-center justify-center">
+        <div className={`relative w-full h-full flex items-center justify-center ${isSalant ? 'bg-slate-700 rounded-lg p-4' : ''}`}>
           <Image
             src={sponsor.logo}
             alt={`${sponsor.name} logo`}
@@ -60,7 +61,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
           )}
         </div>
       ) : (
-        <span className="font-semibold text-slate-200 group-hover:text-white transition-colors text-lg">{sponsor.name}</span>
+        <span className="font-semibold text-slate-700 group-hover:text-slate-900 transition-colors text-lg">{sponsor.name}</span>
       )}
     </div>
   )
