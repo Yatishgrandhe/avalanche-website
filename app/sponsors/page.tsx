@@ -11,7 +11,6 @@ interface Sponsor {
 }
 
 const sponsors2024_2025: Sponsor[] = [
-  { name: 'Avalanche Robotics', logo: '/images/avalanche-logo.png' },
   { name: 'Bobcat', logo: '/images/sponsors/bobcat-logo.png', website: 'https://www.bobcat.com' },
   { name: 'Argosy Foundation', logo: '/images/sponsors/argosy-foundation-logo.png', website: 'https://www.argosyfoundation.org' },
   { name: 'AFI Systems', logo: '/images/sponsors/afi-systems-logo.png' },
@@ -24,7 +23,6 @@ const sponsors2024_2025: Sponsor[] = [
 ]
 
 const sponsors2025_2026: Sponsor[] = [
-  { name: 'Avalanche Robotics', logo: '/images/avalanche-logo.png' },
   { name: 'Bobcat', logo: '/images/sponsors/bobcat-logo.png', website: 'https://www.bobcat.com' },
   { name: 'Salant Family Foundation', logo: '/images/sponsors/salant-foundation-logo.png' },
   { name: 'Gene Haas Foundation', logo: '/images/sponsors/gene-haas-foundation-logo.png', website: 'https://ghaasfoundation.org' },
