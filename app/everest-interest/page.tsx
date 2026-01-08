@@ -41,12 +41,13 @@ export default function EverestInterest() {
               </div>
             </div>
 
-            <div className="relative h-64 md:h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 group">
+            <div className="relative h-80 md:h-[500px] w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 group bg-slate-100">
               <Image
-                src="/images/everest-robot.jpg"
+                src="/images/everest-robot.png"
                 alt="Everest Robotics FTC Robot"
                 fill
-                className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                className="object-contain transform group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                 <p className="text-white font-bold text-xl">Everest FTC Robot</p>
