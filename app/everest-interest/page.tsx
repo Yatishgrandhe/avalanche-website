@@ -43,13 +43,14 @@ export default function EverestInterest() {
 
             <div className="relative h-64 md:h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 group">
               <Image
-                src="/images/robot-placeholder.png"
-                alt="Everest Robot"
+                src="/images/everest-robot.jpg"
+                alt="Everest Robotics FTC Robot"
                 fill
                 className="object-cover transform group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                <p className="text-white font-bold text-xl">2025-2026 Season Robot</p>
+                <p className="text-white font-bold text-xl">Everest FTC Robot</p>
+                <p className="text-white/80 text-sm mt-1">2025-2026 Season</p>
               </div>
             </div>
           </div>

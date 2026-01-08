@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 interface TimelineItem {
   date: string
   title: string
@@ -40,10 +42,12 @@ export default function Timeline({ items }: TimelineProps) {
                 </h3>
                 {item.image && (
                   <div className="mb-4 relative h-48 w-full rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.title}
-                      className="object-cover w-full h-full transform hover:scale-110 transition-transform duration-500"
+                      fill
+                      className="object-cover transform hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
                     />
                   </div>
                 )}

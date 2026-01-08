@@ -113,6 +113,54 @@ const Home = memo(function Home() {
         </div>
       </section>
 
+      {/* Robots Showcase */}
+      <section className="py-24 relative bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-display font-bold text-4xl md:text-5xl text-slate-900 mb-4">OUR ROBOTS</h2>
+            <p className="text-slate-600 text-lg">Engineering excellence through innovation</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
+              <div className="relative h-64 md:h-80">
+                <Image
+                  src="/images/frosbyte-robot.jpg"
+                  alt="Frosbyte - FIRST Reefscape Competition Robot"
+                  fill
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                  <h3 className="font-display font-bold text-3xl text-white mb-2">Frosbyte</h3>
+                  <p className="text-white/90 text-lg mb-1">FIRST Reefscape Competition Robot</p>
+                  <p className="text-white/70 text-sm">2024-2025 Season</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
+              <div className="relative h-64 md:h-80">
+                <Image
+                  src="/images/zelda-robot.jpg"
+                  alt="Zelda - FIRST Crescendo Offseason Robot"
+                  fill
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                  <h3 className="font-display font-bold text-3xl text-white mb-2">Zelda</h3>
+                  <p className="text-white/90 text-lg mb-1">FIRST Crescendo Offseason Robot</p>
+                  <p className="text-white/70 text-sm">2024 Season</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Logos Section */}
       <section className="py-24 border-t border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
