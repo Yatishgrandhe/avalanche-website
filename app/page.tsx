@@ -122,13 +122,13 @@ const Home = memo(function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
-              <div className="relative h-64 md:h-80">
+            <div className="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300 bg-slate-100">
+              <div className="relative h-80 md:h-96">
                 <Image
                   src="/images/frosbyte-robot.png"
                   alt="Frosbyte - FIRST Reefscape Competition Robot"
                   fill
-                  className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  className="object-contain transform group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>

@@ -41,12 +41,12 @@ export default function Timeline({ items }: TimelineProps) {
                   {item.title}
                 </h3>
                 {item.image && (
-                  <div className="mb-4 relative h-48 w-full rounded-lg overflow-hidden">
+                  <div className="mb-4 relative h-64 w-full rounded-lg overflow-hidden bg-slate-100">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
-                      className="object-cover transform hover:scale-110 transition-transform duration-500"
+                      className="object-contain transform hover:scale-110 transition-transform duration-500"
                       loading="lazy"
                     />
                   </div>
