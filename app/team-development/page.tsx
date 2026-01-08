@@ -5,7 +5,7 @@ import Typewriter from '@/components/Typewriter'
 
 const robots = [
   { date: '2024', title: 'Zelda', description: 'FIRST Crescendo Off Season Bot - Our first robot built during the offseason. Named Zelda, this robot was our introduction to competitive robotics.', image: '/images/zelda-robot.jpg' },
-  { date: '2024-2025', title: 'Frosbyte', description: 'FIRST Reefscape Competition Bot - Our first official competition robot. Frosbyte competed in the 2024-2025 FIRST Reefscape season and helped us win the Rising Allstar Award.', image: '/images/frosbyte-robot.jpg' },
+  { date: '2024-2025', title: 'Frosbyte', description: 'FIRST Reefscape Competition Bot - Our first official competition robot. Frosbyte competed in the 2024-2025 FIRST Reefscape season and helped us win the Rising Allstar Award.', image: '/images/frosbyte-robot.png' },
   { date: '2025-2026', title: 'Coming Soon', description: 'FIRST Age Competition Bot - Our next robot for the 2025-2026 season. Currently in development.', image: '/images/robot-placeholder.png' },
 ]
 

@@ -125,7 +125,7 @@ const Home = memo(function Home() {
             <div className="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
               <div className="relative h-64 md:h-80">
                 <Image
-                  src="/images/frosbyte-robot.jpg"
+                  src="/images/frosbyte-robot.png"
                   alt="Frosbyte - FIRST Reefscape Competition Robot"
                   fill
                   className="object-cover transform group-hover:scale-105 transition-transform duration-500"

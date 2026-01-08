@@ -43,7 +43,7 @@ export default function AvalancheInterest() {
 
             <div className="relative h-64 md:h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 group">
               <Image
-                src="/images/frosbyte-robot.jpg"
+                src="/images/frosbyte-robot.png"
                 alt="Frosbyte - Avalanche Robotics Competition Robot"
                 fill
                 className="object-cover transform group-hover:scale-105 transition-transform duration-500"
