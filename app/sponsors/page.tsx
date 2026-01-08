@@ -8,28 +8,29 @@ interface Sponsor {
   name: string
   logo?: string
   website?: string
+  large?: boolean // For logos that should be displayed larger
 }
 
 const sponsors2024_2025: Sponsor[] = [
-  { name: 'Bobcat', logo: '/images/sponsors/bobcat-logo.png', website: 'https://www.bobcat.com' },
-  { name: 'Argosy Foundation', logo: '/images/sponsors/argosy-foundation-logo.png', website: 'https://www.argosyfoundation.org' },
-  { name: 'AFI Systems', logo: '/images/sponsors/afi-systems-logo.png' },
-  { name: 'Salant Family Foundation', logo: '/images/sponsors/salant-foundation-logo.png' },
-  { name: 'Gene Haas Foundation', logo: '/images/sponsors/gene-haas-foundation-logo.png', website: 'https://ghaasfoundation.org' },
-  { name: 'John Deere', logo: '/images/sponsors/john-deere-logo.png', website: 'https://www.deere.com' },
-  { name: 'RTX', logo: '/images/sponsors/rtx-logo.png', website: 'https://www.rtx.com' },
-  { name: 'NASA', logo: '/images/sponsors/nasa-logo.png', website: 'https://www.nasa.gov' },
-  { name: 'Synchrony', logo: '/images/sponsors/synchrony-logo.png', website: 'https://www.synchrony.com' },
+  { name: 'Bobcat', logo: '/images/sponsors/bobcat.png', website: 'https://www.bobcat.com' },
+  { name: 'Argosy Foundation', logo: '/images/sponsors/argosy.png', website: 'https://www.argosyfoundation.org' },
+  { name: 'AFI Systems', logo: '/images/sponsors/afi.png' },
+  { name: 'Salant Family Foundation', logo: '/images/sponsors/salant.png' },
+  { name: 'Gene Haas Foundation', logo: '/images/sponsors/gene-haas-foundation-logo.png', website: 'https://ghaasfoundation.org', large: true },
+  { name: 'John Deere', logo: '/images/sponsors/Johndeere.png', website: 'https://www.deere.com' },
+  { name: 'RTX', logo: '/images/sponsors/RTX.png', website: 'https://www.rtx.com' },
+  { name: 'NASA', logo: '/images/sponsors/nasa.png', website: 'https://www.nasa.gov', large: true },
+  { name: 'Synchrony', logo: '/images/sponsors/synchrony.png', website: 'https://www.synchrony.com' },
   { name: 'Robotics', logo: '/images/sponsors/robotics-logo.png' },
 ]
 
 const sponsors2025_2026: Sponsor[] = [
-  { name: 'Bobcat', logo: '/images/sponsors/bobcat-logo.png', website: 'https://www.bobcat.com' },
-  { name: 'Salant Family Foundation', logo: '/images/sponsors/salant-foundation-logo.png' },
-  { name: 'Gene Haas Foundation', logo: '/images/sponsors/gene-haas-foundation-logo.png', website: 'https://ghaasfoundation.org' },
-  { name: 'NASA', logo: '/images/sponsors/nasa-logo.png', website: 'https://www.nasa.gov' },
-  { name: 'Kimley-Horn', logo: '/images/sponsors/kimley-horn-logo.png', website: 'https://www.kimley-horn.com' },
-  { name: 'AFI Systems', logo: '/images/sponsors/afi-systems-logo.png' },
+  { name: 'Bobcat', logo: '/images/sponsors/bobcat.png', website: 'https://www.bobcat.com' },
+  { name: 'Salant Family Foundation', logo: '/images/sponsors/salant.png' },
+  { name: 'Gene Haas Foundation', logo: '/images/sponsors/gene-haas-foundation-logo.png', website: 'https://ghaasfoundation.org', large: true },
+  { name: 'NASA', logo: '/images/sponsors/nasa.png', website: 'https://www.nasa.gov', large: true },
+  { name: 'Kimley-Horn', logo: '/images/sponsors/Kimleyhorn.png', website: 'https://www.kimley-horn.com' },
+  { name: 'AFI Systems', logo: '/images/sponsors/afi.png' },
   { name: 'Robotics', logo: '/images/sponsors/robotics-logo.png' },
 ]
 
@@ -37,16 +38,20 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const [imageError, setImageError] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
 
+  const isLarge = sponsor.large || false
+  const maxHeight = isLarge ? 'max-h-48 md:max-h-56' : 'max-h-32 md:max-h-40'
+  const minHeight = isLarge ? 'min-h-[200px] md:min-h-[240px]' : 'min-h-[160px]'
+
   const content = (
-    <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-md flex items-center justify-center text-center min-h-[160px] hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
+    <div className={`bg-white p-8 rounded-xl border border-slate-200 shadow-md flex items-center justify-center text-center ${minHeight} hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
       {sponsor.logo && !imageError ? (
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
             src={sponsor.logo}
             alt={`${sponsor.name} logo`}
-            width={250}
-            height={120}
-            className={`object-contain max-h-32 md:max-h-40 w-auto transition-all duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            width={isLarge ? 350 : 250}
+            height={isLarge ? 180 : 120}
+            className={`object-contain ${maxHeight} w-auto transition-all duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onError={() => setImageError(true)}
             onLoad={() => setImageLoaded(true)}
           />
