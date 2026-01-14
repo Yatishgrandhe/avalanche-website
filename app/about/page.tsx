@@ -20,8 +20,8 @@ export default function About() {
     <div className="relative min-h-screen pb-20 overflow-hidden">
       {/* Header */}
       <div className="relative pt-20 pb-16 text-center">
-        <h1 className="font-display font-bold text-5xl md:text-6xl text-slate-900 mb-4 overflow-hidden h-20 flex items-center justify-center">
-          <Typewriter text="ABOUT US" speed={150} loop={false} cursor={true} className="text-slate-900" />
+        <h1 className="font-display font-bold text-5xl md:text-6xl text-white mb-4 overflow-hidden h-20 flex items-center justify-center">
+          <Typewriter text="ABOUT US" speed={150} loop={false} cursor={true} className="text-white" />
         </h1>
         <p className="text-xl text-accent-blue font-medium animate-slide-up" style={{ animationDelay: '0.2s' }}>
           RECRUIT | REFINE | RETAIN | REPEAT
@@ -30,7 +30,7 @@ export default function About() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Content */}
-        <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-xl mb-20 animate-fade-in relative overflow-hidden">
+        <div className="bg-slate-900/80 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-slate-700 shadow-xl mb-20 animate-fade-in relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent-blue/10 rounded-full blur-[100px] animate-pulse-slow"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-purple/10 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
 
@@ -55,35 +55,35 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
             <div className="space-y-8">
               <div>
-                <h2 className="font-display font-bold text-3xl md:text-4xl text-slate-900 mb-6">Who We Are</h2>
-                <p className="text-lg text-slate-600 leading-relaxed">
+                <h2 className="font-display font-bold text-3xl md:text-4xl text-white mb-6">Who We Are</h2>
+                <p className="text-lg text-slate-300 leading-relaxed">
                   We are <span className="text-accent-blue font-semibold">FRC Team 2724</span> and <span className="text-accent-purple font-semibold">FTC Team 31643</span> from the greater Charlotte, North Carolina area.
                   We operate out of the Queen City Robotics Alliance Zone in Southwest Charlotte, bringing together students from diverse backgrounds to collaborate and innovate.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white border-2 border-slate-100 p-6 rounded-xl hover:shadow-lg transition-all hover:border-accent-yellow/30 group">
+                <div className="bg-slate-800 border-2 border-slate-700 p-6 rounded-xl hover:shadow-lg transition-all hover:border-accent-yellow/30 group">
                   <h3 className="text-xl font-bold text-accent-yellow mb-4 flex items-center group-hover:scale-105 transition-transform">
                     <span className="w-2 h-2 bg-accent-yellow rounded-full mr-3"></span>
                     Our Students
                   </h3>
-                  <ul className="space-y-2 text-slate-600 text-sm">
-                    <li className="flex items-center"><span className="text-slate-900 font-bold mr-2">2</span> States</li>
-                    <li className="flex items-center"><span className="text-slate-900 font-bold mr-2">4</span> Counties</li>
-                    <li className="flex items-center"><span className="text-slate-900 font-bold mr-2">10</span> Cities</li>
-                    <li className="flex items-center"><span className="text-slate-900 font-bold mr-2">16</span> High Schools</li>
-                    <li className="flex items-center"><span className="text-slate-900 font-bold mr-2">7</span> Middle Schools</li>
+                  <ul className="space-y-2 text-slate-300 text-sm">
+                    <li className="flex items-center"><span className="text-white font-bold mr-2">2</span> States</li>
+                    <li className="flex items-center"><span className="text-white font-bold mr-2">4</span> Counties</li>
+                    <li className="flex items-center"><span className="text-white font-bold mr-2">10</span> Cities</li>
+                    <li className="flex items-center"><span className="text-white font-bold mr-2">16</span> High Schools</li>
+                    <li className="flex items-center"><span className="text-white font-bold mr-2">7</span> Middle Schools</li>
                   </ul>
                 </div>
 
-                <div className="bg-white border-2 border-slate-100 p-6 rounded-xl hover:shadow-lg transition-all hover:border-accent-cyan/30 group">
+                <div className="bg-slate-800 border-2 border-slate-700 p-6 rounded-xl hover:shadow-lg transition-all hover:border-accent-cyan/30 group">
                   <h3 className="text-xl font-bold text-accent-cyan mb-4 flex items-center group-hover:scale-105 transition-transform">
                     <span className="w-2 h-2 bg-accent-cyan rounded-full mr-3"></span>
                     Our Mentors
                   </h3>
-                  <p className="text-slate-500 text-sm mb-3">Industry professionals in:</p>
-                  <ul className="space-y-2 text-slate-600 text-sm">
+                  <p className="text-slate-400 text-sm mb-3">Industry professionals in:</p>
+                  <ul className="space-y-2 text-slate-300 text-sm">
                     <li className="flex items-center">Electrical Engineering</li>
                     <li className="flex items-center">Computer Programming</li>
                     <li className="flex items-center">Cyber Security</li>
@@ -95,7 +95,7 @@ export default function About() {
 
             <div className="relative group perspective-1000">
               <div className="absolute inset-0 bg-gradient-to-r from-accent-blue to-accent-purple rounded-2xl blur-2xl opacity-20 animate-pulse-slow group-hover:opacity-40 transition-opacity duration-500"></div>
-              <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl p-2 border border-slate-200 overflow-hidden transform transition-transform duration-500 group-hover:scale-[1.02] group-hover:rotate-y-2">
+              <div className="relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-2 border border-slate-700 overflow-hidden transform transition-transform duration-500 group-hover:scale-[1.02] group-hover:rotate-y-2">
                 <div className="aspect-video rounded-xl flex items-center justify-center relative overflow-hidden">
                   <Image
                     src="/images/team-win.png"
@@ -117,8 +117,8 @@ export default function About() {
         {/* Achievements Timeline */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="font-display font-bold text-4xl text-slate-900 mb-4">OUR JOURNEY</h2>
-            <p className="text-slate-600">The milestones that define our legacy</p>
+            <h2 className="font-display font-bold text-4xl text-white mb-4">OUR JOURNEY</h2>
+            <p className="text-slate-300">The milestones that define our legacy</p>
           </div>
           <Timeline items={achievements} />
         </div>

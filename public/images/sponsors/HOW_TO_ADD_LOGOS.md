@@ -80,3 +80,4 @@ After adding logos:
 - Clickable logos link to sponsor websites
 - All logos are optimized by Next.js automatically
 
+

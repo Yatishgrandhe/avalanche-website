@@ -44,7 +44,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const isSalant = sponsor.name === 'Salant Family Foundation'
 
   const content = (
-    <div className={`bg-white p-8 rounded-xl border border-slate-200 shadow-md flex items-center justify-center text-center ${minHeight} hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
+    <div className={`bg-slate-900/80 backdrop-blur-md p-8 rounded-xl border border-slate-700 shadow-md flex items-center justify-center text-center ${minHeight} hover:bg-slate-800 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
       {sponsor.logo && !imageError ? (
         <div className={`relative w-full h-full flex items-center justify-center ${isSalant ? 'bg-slate-700 rounded-lg p-4' : ''}`}>
           <Image
@@ -61,7 +61,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
           )}
         </div>
       ) : (
-        <span className="font-semibold text-slate-700 group-hover:text-slate-900 transition-colors text-lg">{sponsor.name}</span>
+        <span className="font-semibold text-slate-300 group-hover:text-white transition-colors text-lg">{sponsor.name}</span>
       )}
     </div>
   )
@@ -87,7 +87,7 @@ export default function Sponsors() {
     <div className="relative min-h-screen pb-20">
       {/* Header */}
       <div className="relative pt-20 pb-16 text-center">
-        <h1 className="font-display font-bold text-5xl md:text-6xl text-slate-900 mb-4 animate-fade-in">
+        <h1 className="font-display font-bold text-5xl md:text-6xl text-white mb-4 animate-fade-in">
           SPONSORS
         </h1>
         <p className="text-xl text-accent-yellow font-medium animate-slide-up">
@@ -97,9 +97,9 @@ export default function Sponsors() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 max-w-3xl mx-auto animate-fade-in">
-          <p className="text-xl text-slate-600 leading-relaxed">
+          <p className="text-xl text-slate-300 leading-relaxed">
             Our sponsors are the backbone of our team, enabling us to inspire the next generation of innovators.
-            <span className="text-slate-900 font-semibold block mt-2">Thank you for your support!</span>
+            <span className="text-white font-semibold block mt-2">Thank you for your support!</span>
           </p>
         </div>
 

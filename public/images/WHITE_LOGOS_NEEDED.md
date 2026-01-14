@@ -19,3 +19,4 @@ The following white logo versions are needed for better visibility on dark backg
 
 Once these white logo files are added, update the code to use them conditionally based on background color or context.
 
+
