@@ -114,15 +114,15 @@ const Home = memo(function Home() {
       </section>
 
       {/* Robots Showcase */}
-      <section className="py-24 relative bg-white">
+      <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-slate-900 mb-4">OUR ROBOTS</h2>
-            <p className="text-slate-600 text-lg">Engineering excellence through innovation</p>
+            <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">OUR ROBOTS</h2>
+            <p className="text-slate-300 text-lg">Engineering excellence through innovation</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300 bg-slate-100">
+            <div className="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-700 hover:shadow-xl transition-all duration-300 bg-slate-900">
               <div className="relative h-80 md:h-96">
                 <Image
                   src="/images/frosbyte-robot.png"

@@ -34,20 +34,20 @@ export default function Admin() {
     return (
       <div className="relative min-h-screen flex items-center justify-center">
         {/* Background */}
-        <div className="absolute inset-0 bg-slate-50">
+        <div className="absolute inset-0 bg-slate-950">
           <div className="absolute inset-0 bg-[url('/images/grid.svg')] opacity-5"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 via-transparent to-accent-purple/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/10 via-transparent to-accent-purple/10"></div>
         </div>
 
-        <div className="relative z-10 bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-2xl max-w-md w-full mx-4 animate-fade-in">
+        <div className="relative z-10 bg-slate-900/80 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-slate-700 shadow-2xl max-w-md w-full mx-4 animate-fade-in">
           <div className="text-center mb-8">
-            <h1 className="font-display font-bold text-3xl text-slate-900 mb-2">Admin Portal</h1>
-            <p className="text-slate-500">Please authenticate to access the dashboard</p>
+            <h1 className="font-display font-bold text-3xl text-white mb-2">Admin Portal</h1>
+            <p className="text-slate-300">Please authenticate to access the dashboard</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
                 Password
               </label>
               <input
@@ -55,7 +55,7 @@ export default function Admin() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:border-transparent transition-all duration-300"
                 placeholder="Enter access key"
               />
             </div>
@@ -88,8 +88,8 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
             <div>
-              <h1 className="font-display font-bold text-4xl text-slate-900 mb-2">Admin Dashboard</h1>
-              <p className="text-slate-500">Manage submissions and team data</p>
+              <h1 className="font-display font-bold text-4xl text-white mb-2">Admin Dashboard</h1>
+              <p className="text-slate-300">Manage submissions and team data</p>
             </div>
             <button
               onClick={() => {
@@ -107,7 +107,7 @@ export default function Admin() {
 
           <div className="space-y-12 animate-fade-in">
             {/* Sponsor Submissions */}
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+            <div className="bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-700 shadow-xl overflow-hidden">
               <AdminTable
                 title="Sponsor Submissions"
                 tableName="sponsor_submissions"
@@ -124,16 +124,16 @@ export default function Admin() {
             </div>
 
             {/* Submission Closed Notice */}
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden p-12 text-center">
+            <div className="bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-700 shadow-xl overflow-hidden p-12 text-center">
               <div className="w-20 h-20 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
                 <svg className="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <h2 className="font-display font-bold text-3xl text-slate-900 mb-4">
+              <h2 className="font-display font-bold text-3xl text-white mb-4">
                 Submission Closed
               </h2>
-              <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              <p className="text-slate-300 text-lg max-w-2xl mx-auto">
                 Interest form submissions for Avalanche and Everest teams are currently closed.
               </p>
             </div>
