@@ -41,12 +41,13 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const isLarge = sponsor.large || false
   const maxHeight = isLarge ? 'max-h-48 md:max-h-56' : 'max-h-32 md:max-h-40'
   const minHeight = isLarge ? 'min-h-[200px] md:min-h-[240px]' : 'min-h-[160px]'
-  const isSalant = sponsor.name === 'Salant Family Foundation'
+  const lightBlueCardSponsors = ['Salant Family Foundation', 'Bobcat', 'Argosy Foundation', 'RTX', 'Synchrony', 'John Deere']
+  const hasLightBlueCard = lightBlueCardSponsors.includes(sponsor.name)
 
   const content = (
     <div className={`bg-slate-900/80 backdrop-blur-md p-8 rounded-xl border border-slate-700 shadow-md flex items-center justify-center text-center ${minHeight} hover:bg-slate-800 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden`}>
       {sponsor.logo && !imageError ? (
-        <div className={`relative w-full h-full flex items-center justify-center ${isSalant ? 'bg-slate-700 rounded-lg p-4' : ''}`}>
+        <div className={`relative w-full h-full flex items-center justify-center ${hasLightBlueCard ? 'bg-sky-600/40 rounded-lg p-4' : ''}`}>
           <Image
             src={sponsor.logo}
             alt={`${sponsor.name} logo`}
@@ -103,21 +104,6 @@ export default function Sponsors() {
           </p>
         </div>
 
-        {/* 2024-2025 Sponsors */}
-        <div className="mb-20 animate-fade-in">
-          <div className="flex items-center justify-center mb-10">
-            <div className="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent w-full max-w-xs"></div>
-            <h2 className="font-display font-bold text-3xl text-white mx-8">2024-2025 SPONSORS</h2>
-            <div className="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent w-full max-w-xs"></div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {sponsors2024_2025.map((sponsor, index) => (
-              <SponsorCard key={index} sponsor={sponsor} />
-            ))}
-          </div>
-        </div>
-
         {/* 2025-2026 Sponsors */}
         <div className="mb-20 animate-fade-in">
           <div className="flex items-center justify-center mb-10">
@@ -128,6 +114,21 @@ export default function Sponsors() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {sponsors2025_2026.map((sponsor, index) => (
+              <SponsorCard key={index} sponsor={sponsor} />
+            ))}
+          </div>
+        </div>
+
+        {/* 2024-2025 Sponsors */}
+        <div className="mb-20 animate-fade-in">
+          <div className="flex items-center justify-center mb-10">
+            <div className="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent w-full max-w-xs"></div>
+            <h2 className="font-display font-bold text-3xl text-white mx-8">2024-2025 SPONSORS</h2>
+            <div className="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent w-full max-w-xs"></div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {sponsors2024_2025.map((sponsor, index) => (
               <SponsorCard key={index} sponsor={sponsor} />
             ))}
           </div>

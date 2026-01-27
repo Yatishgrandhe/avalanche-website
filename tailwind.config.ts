@@ -38,8 +38,20 @@ const config: Config = {
         'blob': 'blob 7s infinite',
         'spin-slow': 'spin 8s linear infinite',
         'text-reveal': 'textReveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0.5s',
+        'shrink-out': 'shrinkOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+        'pop-in': 'popIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        'pop-in-delayed': 'popIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both',
       },
       keyframes: {
+        shrinkOut: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '60%': { transform: 'scale(0.5)', opacity: '0.5' },
+          '100%': { transform: 'scale(0.35)', opacity: '0' },
+        },
+        popIn: {
+          '0%': { transform: 'scale(0.6)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },

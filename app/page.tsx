@@ -5,9 +5,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 
-const Typewriter = dynamic(() => import('@/components/Typewriter'), {
+const ShrinkPopText = dynamic(() => import('@/components/ShrinkPopText'), {
   ssr: false,
-  loading: () => <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan pb-4">AVALANCHE</span>
+  loading: () => (
+    <div className="h-24 md:h-32 lg:h-40 flex items-center justify-center">
+      <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan pb-4">AVALANCHE</span>
+    </div>
+  ),
 })
 
 const Home = memo(function Home() {
@@ -19,15 +23,11 @@ const Home = memo(function Home() {
           <div className="animate-fade-in">
             <h1 className="font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-tight mb-6 overflow-hidden">
               <span className="block text-white animate-slide-up">WE ARE</span>
-              <div className="h-24 md:h-32 lg:h-40 flex items-center justify-center">
-                <Typewriter
-                  text={['AVALANCHE', 'INNOVATORS', 'CHAMPIONS', 'FAMILY']}
-                  speed={150}
-                  delay={2000}
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan pb-4"
-                  cursor={false}
-                />
-              </div>
+              <ShrinkPopText
+                words={['AVALANCHE', 'INNOVATORS', 'CHAMPIONS', 'FAMILY']}
+                interval={2000}
+                className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan pb-4"
+              />
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-light animate-fade-in" style={{ animationDelay: '1s' }}>
               FRC Team 2724 & FTC Team 31643. <br className="hidden md:block" />
