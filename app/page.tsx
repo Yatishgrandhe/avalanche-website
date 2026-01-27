@@ -18,10 +18,10 @@ const Home = memo(function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 pb-32 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center pt-20 pb-32 overflow-x-visible overflow-y-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="animate-fade-in">
-            <h1 className="font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-tight mb-6 overflow-hidden">
+            <h1 className="font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-tight mb-6 overflow-visible">
               <span className="block text-white animate-slide-up">WE ARE</span>
               <ShrinkPopText
                 words={['AVALANCHE', 'INNOVATORS', 'CHAMPIONS', 'FAMILY']}
