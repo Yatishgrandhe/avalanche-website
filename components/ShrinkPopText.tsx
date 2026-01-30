@@ -18,9 +18,9 @@ const ShrinkPopText = memo(function ShrinkPopText({
   const [transitioning, setTransitioning] = useState(false)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const SHRINK_MS = 500
+  const FADE_MS = 400
   const POP_MS = 550
-  const TRANSITION_MS = SHRINK_MS + POP_MS
+  const TRANSITION_MS = FADE_MS + POP_MS
 
   useEffect(() => {
     if (words.length <= 1) return
@@ -54,8 +54,8 @@ const ShrinkPopText = memo(function ShrinkPopText({
             {nextWord}
           </span>
           <span
-            key={`shrink-${currentWord}`}
-            className={`absolute inset-0 flex items-center justify-center origin-center ${wordClass} animate-shrink-out pointer-events-none`}
+            key={`fade-${currentWord}`}
+            className={`absolute inset-0 flex items-center justify-center origin-center ${wordClass} animate-fade-out pointer-events-none`}
           >
             {currentWord}
           </span>
