@@ -44,7 +44,7 @@ const ShrinkPopText = memo(function ShrinkPopText({
   const wordClass = `inline-block text-center w-full ${className}`
 
   return (
-    <div className="h-24 md:h-32 lg:h-40 w-full relative flex items-center justify-center overflow-visible">
+    <div className="h-24 md:h-32 lg:h-40 w-full relative flex items-center justify-center overflow-visible py-2">
       {transitioning ? (
         <>
           <span
